@@ -3,21 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prosta Tabela</title>
+    <title>Rozszerzona Tabela</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .table-container {
+            overflow-x: auto; /* Umożliwia przewijanie poziome */
+        }
         table {
             width: 100%;
             border-collapse: collapse;
+            table-layout: fixed; /* Wymusza stałe szerokości kolumn */
         }
         th, td {
             border: 1px solid black;
             padding: 5px;
+            text-align: left;
+            vertical-align: top;
         }
         th {
-            text-align: left;
             background-color: #f2f2f2;
+            white-space: nowrap; /* Zapobiega zawijaniu tekstu */
         }
-        input, select {
+        th, td {
+            min-width: 100px; /* Minimalna szerokość kolumn */
+            max-width: 200px; /* Maksymalna szerokość kolumn */
+            overflow: hidden; /* Ukrywa nadmiar tekstu */
+        }
+        input, select, textarea {
             width: 100%;
             box-sizing: border-box;
             border: none;
@@ -26,88 +41,115 @@
     </style>
 </head>
 <body>
-    <h1>Tabela Wprowadzania Danych</h1>
-    <table id="data-table">
-        <thead>
-            <tr>
-                <th>L.P.</th>
-                <th>Rodzaj Pomieszczenia</th>
-                <th>Wysokość Otworu (cm)</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>1</td>
-                <td><input type="text" placeholder="Rodzaj Pomieszczenia"></td>
-                <td>
-                    <select>
-                        <option value="" selected>Wybierz...</option>
-                        <option value="190">190</option>
-                        <option value="191">191</option>
-                        <option value="192">192</option>
-                        <option value="193">193</option>
-                        <option value="194">194</option>
-                        <option value="195">195</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td><input type="text" placeholder="Rodzaj Pomieszczenia"></td>
-                <td>
-                    <select>
-                        <option value="" selected>Wybierz...</option>
-                        <option value="190">190</option>
-                        <option value="191">191</option>
-                        <option value="192">192</option>
-                        <option value="193">193</option>
-                        <option value="194">194</option>
-                        <option value="195">195</option>
-                    </select>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <h1>Rozszerzona Tabela Wprowadzania Danych</h1>
+    <div class="table-container">
+        <table id="data-table">
+            <thead>
+                <tr>
+                    <th>L.P.</th>
+                    <th>Rodzaj Pomieszczenia</th>
+                    <th>Wysokość Otworu (cm)</th>
+                    <th>Grubość Muru (cm)</th>
+                    <th>Wilgotność Posadzki/Powietrza</th>
+                    <th>Inne</th>
+                    <th>Zakres Prac Zleceniodawcy</th>
+                    <th>Strona L/P</th>
+                    <th>Szerokość Skrzydła</th>
+                    <th>Zakres Ościeżnicy</th>
+                    <th>Zakres Prac Montażysty</th>
+                    <th>Wycena Prac (Kwota Netto)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td><input type="text" placeholder="Rodzaj Pomieszczenia"></td>
+                    <td>
+                        <select>
+                            <option value="" selected>Wybierz...</option>
+                            <option value="190">190</option>
+                            <option value="191">191</option>
+                            <option value="192">192</option>
+                            <option value="193">193</option>
+                            <option value="194">194</option>
+                            <option value="195">195</option>
+                        </select>
+                    </td>
+                    <td><input type="number" placeholder="Grubość Muru (cm)"></td>
+                    <td><input type="text" placeholder="Wilgotność Posadzki/Powietrza"></td>
+                    <td><input type="text" placeholder="Inne"></td>
+                    <td><textarea placeholder="Zakres Prac Zleceniodawcy"></textarea></td>
+                    <td>
+                        <select>
+                            <option value="" selected>Wybierz...</option>
+                            <option value="L">Lewa</option>
+                            <option value="P">Prawa</option>
+                        </select>
+                    </td>
+                    <td><input type="number" placeholder="Szerokość Skrzydła (cm)"></td>
+                    <td><input type="text" placeholder="Zakres Ościeżnicy"></td>
+                    <td><textarea placeholder="Zakres Prac Montażysty"></textarea></td>
+                    <td><input type="number" placeholder="Kwota Netto (zł)"></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td><input type="text" placeholder="Rodzaj Pomieszczenia"></td>
+                    <td>
+                        <select>
+                            <option value="" selected>Wybierz...</option>
+                            <option value="190">190</option>
+                            <option value="191">191</option>
+                            <option value="192">192</option>
+                            <option value="193">193</option>
+                            <option value="194">194</option>
+                            <option value="195">195</option>
+                        </select>
+                    </td>
+                    <td><input type="number" placeholder="Grubość Muru (cm)"></td>
+                    <td><input type="text" placeholder="Wilgotność Posadzki/Powietrza"></td>
+                    <td><input type="text" placeholder="Inne"></td>
+                    <td><textarea placeholder="Zakres Prac Zleceniodawcy"></textarea></td>
+                    <td>
+                        <select>
+                            <option value="" selected>Wybierz...</option>
+                            <option value="L">Lewa</option>
+                            <option value="P">Prawa</option>
+                        </select>
+                    </td>
+                    <td><input type="number" placeholder="Szerokość Skrzydła (cm)"></td>
+                    <td><input type="text" placeholder="Zakres Ościeżnicy"></td>
+                    <td><textarea placeholder="Zakres Prac Montażysty"></textarea></td>
+                    <td><input type="number" placeholder="Kwota Netto (zł)"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
     <button onclick="saveToPDF()">Zapisz do PDF</button>
 
-    <!-- jsPDF z CDN -->
+    <!-- Dodanie html2canvas i jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <script>
         async function saveToPDF() {
             const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
 
-            // Pobierz tabelę
-            const table = document.getElementById("data-table");
-            let rows = table.rows;
+            // Wybierz element tabeli do renderowania
+            const element = document.getElementById("data-table");
 
-            // Dodaj nagłówek
-            doc.text("Tabela Wprowadzania Danych", 10, 10);
+            // Renderowanie tabeli jako obraz
+            html2canvas(element).then((canvas) => {
+                const imgData = canvas.toDataURL("image/png");
+                const doc = new jsPDF();
 
-            // Dodaj dane tabeli do PDF
-            let y = 20; // Startowa pozycja Y w dokumencie PDF
-            for (let i = 0; i < rows.length; i++) {
-                let row = rows[i];
-                let rowText = [];
-                for (let j = 0; j < row.cells.length; j++) {
-                    let cell = row.cells[j];
-                    let input = cell.querySelector("input, select");
-                    if (input) {
-                        if (input.tagName === "SELECT") {
-                            rowText.push(input.options[input.selectedIndex].text);
-                        } else {
-                            rowText.push(input.value || "");
-                        }
-                    } else {
-                        rowText.push(cell.textContent);
-                    }
-                }
-                doc.text(rowText.join(" | "), 10, y);
-                y += 10; // Przesunięcie do kolejnego wiersza
-            }
+                // Dodaj obraz do PDF
+                const imgWidth = 190; // Szerokość obrazu w PDF (w mm)
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
-            // Pobierz plik PDF na iPadzie
-            doc.save("tabela.pdf");
+                doc.addImage(imgData, "PNG", 10, 10, imgWidth, imgHeight);
+
+                // Zapisz PDF
+                doc.save("tabela.pdf");
+            });
         }
     </script>
 </body>
