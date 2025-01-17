@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prosta Tabela</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 5px;
+        }
+        th {
+            text-align: left;
+            background-color: #f2f2f2;
+        }
+        input, select {
+            width: 100%;
+            box-sizing: border-box;
+            border: none;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tabela Wprowadzania Danych</h1>
+    <table id="data-table">
+        <thead>
+            <tr>
+                <th>L.P.</th>
+                <th>Rodzaj Pomieszczenia</th>
+                <th>Wysokość Otworu (cm)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td><input type="text" placeholder="Rodzaj Pomieszczenia"></td>
+                <td>
+                    <select>
+                        <option value="" selected>Wybierz...</option>
+                        <option value="190">190</option>
+                        <option value="191">191</option>
+                        <option value="192">192</option>
+                        <option value="193">193</option>
+                        <option value="194">194</option>
+                        <option value="195">195</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td><input type="text" placeholder="Rodzaj Pomieszczenia"></td>
+                <td>
+                    <select>
+                        <option value="" selected>Wybierz...</option>
+                        <option value="190">190</option>
+                        <option value="191">191</option>
+                        <option value="192">192</option>
+                        <option value="193">193</option>
+                        <option value="194">194</option>
+                        <option value="195">195</option>
+                    </select>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button onclick="saveToPDF()">Zapisz do PDF</button>
+
+    <!-- jsPDF z CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script>
+        async function saveToPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Pobierz tabelę
+            const table = document.getElementById("data-table");
+            let rows = table.rows;
+
+            // Dodaj nagłówek
+            doc.text("Tabela Wprowadzania Danych", 10, 10);
+
+            // Dodaj dane tabeli do PDF
+            let y = 20; // Startowa pozycja Y w dokumencie PDF
+            for (let i = 0; i < rows.length; i++) {
+                let row = rows[i];
+                let rowText = [];
+                for (let j = 0; j < row.cells.length; j++) {
+                    let cell = row.cells[j];
+                    let input = cell.querySelector("input, select");
+                    if (input) {
+                        if (input.tagName === "SELECT") {
+                            rowText.push(input.options[input.selectedIndex].text);
+                        } else {
+                            rowText.push(input.value || "");
+                        }
+                    } else {
+                        rowText.push(cell.textContent);
+                    }
+                }
+                doc.text(rowText.join(" | "), 10, y);
+                y += 10; // Przesunięcie do kolejnego wiersza
+            }
+
+            // Pobierz plik PDF na iPadzie
+            doc.save("tabela.pdf");
+        }
+    </script>
+</body>
+</html>
