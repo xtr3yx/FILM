@@ -11,9 +11,10 @@
         }
         .table-container {
             overflow-x: auto; /* Umożliwia przewijanie poziome */
+            width: 100%; /* Dopasowanie do szerokości ekranu */
         }
         table {
-            width: 100%;
+            width: 1200px; /* Ustawienie stałej szerokości tabeli */
             border-collapse: collapse;
             table-layout: fixed; /* Wymusza stałe szerokości kolumn */
         }
@@ -29,7 +30,6 @@
         }
         th, td {
             min-width: 100px; /* Minimalna szerokość kolumn */
-            max-width: 200px; /* Maksymalna szerokość kolumn */
             overflow: hidden; /* Ukrywa nadmiar tekstu */
         }
         input, select, textarea {
@@ -37,6 +37,16 @@
             box-sizing: border-box;
             border: none;
             padding: 5px;
+        }
+
+        /* Responsywność */
+        @media (max-width: 768px) {
+            .table-container {
+                overflow-x: auto; /* Zapewnia przewijanie poziome na małych ekranach */
+            }
+            table {
+                width: 1200px; /* Utrzymuje szerokość tabeli */
+            }
         }
     </style>
 </head>
