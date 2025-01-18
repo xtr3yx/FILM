@@ -10,11 +10,12 @@
             margin: 10px;
         } 
         .content {
-            margin-top: 90px; /* Obniżenie treści */
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-        }
+        margin-top: 90px; /* Obniżenie treści */
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start; /* Wyrównanie elementów do początku */
+        gap: 400px; /* Odstępy między sekcjami */
+    }
 
         .form-group {
             display: flex; /* Ustawienie label i input w jednej linii */
@@ -42,21 +43,35 @@
     margin-top: 20px;
 }
 #montazysta {
-    margin-top: 20px;
-    padding: 10px;
-    border: 1px solid white;
-    width: 300px; /* Szerokość sekcji */
-    position: relative;
-    left: calc(100% - 300px); /* Przesunięcie sekcji na prawo */
-}
-#montazysta h3 {
-    margin-bottom: 10px;
-    font-size: 18px;
-    color: #333;
-}
+        padding: 10px;
+        max-width: 300px; /* Ograniczenie szerokości */
+        flex-shrink: 0; /* Zapobieganie skalowaniu sekcji */
+    }
+
+    #montazysta h3 {
+        margin-bottom: 10px;
+        font-size: 18px;
+        color: #333;
+    }
+
 .no-print {
     display: block; /* Domyślnie przycisk jest widoczny */
 }
+.signature-section {
+    display: flex; /* Ustaw elementy w jednej linii */
+    justify-content: flex-end; /* Wyrównanie sekcji do prawej */
+    align-items: center; /* Wyrównanie w pionie */
+    margin-top: 20px; /* Odstęp od góry */
+    gap: 20px; /* Odstęp między podpisami */
+}
+
+.signature {
+    display: flex; /* Ustaw zawartość w jednej linii */
+    flex-direction: column; /* Ustaw elementy w kolumnie */
+    align-items: center; /* Wyśrodkuj zawartość */
+    text-align: center;
+}
+
 
 .no-print.hidden {
     display: none; /* Ukrycie przycisku */
@@ -86,6 +101,7 @@
             <div class="form-group">
                 <label for="clientName">Imię i nazwisko Zleceniodawcy:</label>
                 <input type="text" id="clientName">
+
             </div>
             <div class="form-group">
                 <label for="contractAddress">Adres do umowy:</label>
@@ -99,6 +115,7 @@
                 <label for="phoneNumber">Telefon:</label>
                 <input type="text" id="phoneNumber">
             </div>
+            
         </div>
     
         <!-- Informacje o montażyście -->
@@ -110,42 +127,50 @@
     </div>
     
 
-    <!-- Tabela danych -->
     <table id="data-table">
         <thead>
             <tr>
                 <th style="min-width: 30px;">L.P.</th>
                 <th style="min-width: 120px;">Rodzaj pomieszczenia</th>
-                <th style="min-width: 50px;">Wysokość otworu (cm)</th>
-                <th style="min-width: 50px;">Szerokość otworu (cm)</th>
+                <th style="min-width: 30px;">Wysokość otworu (cm)</th>
+                <th style="min-width: 30px;">Szerokość otworu (cm)</th>
                 <th style="min-width: 50px;">Grubość muru (cm)</th>
-                <th style="min-width: 100px;">Rodzaj zamka</th>
-                <th style="min-width: 300px;">Inne</th>
-                <th style="min-width: 200px;">Zakres prac przewidzianych do wykonania przez
-                    Zleceniodawce przed Montażem</th>
+                <th style="min-width: 80px;">Rodzaj zamka</th>
+                <th style="min-width: 230px;">Inne</th>
+                <th style="min-width: 200px;">Zakres prac przewidzianych do wykonania przez Zleceniodawce przed Montażem</th>
                 <th style="min-width: 80px;">Strona L/P</th>
                 <th style="min-width: 80px;">Szerokość skrzydła</th>
-                <th style="min-width: 120px;">Zakres ościeżnicy</th>
-                <th style="min-width: 300px;">Zakres prac przewidzianych do wykonania przez Montażystę podczas montażu</th>
+                <th style="min-width: 80px;">Zakres ościeżnicy</th>
+                <th style="min-width: 230px;">Zakres prac przewidzianych do wykonania przez Montażystę podczas montażu</th>
                 <th style="min-width: 90px;">Wycena pracy w kwotach netto</th>
             </tr>
         </thead>
         <tbody id="table-body">
-            <!-- Wiersze zostaną dodane dynamicznie -->
+            <!-- Wiersze będą generowane dynamicznie -->
         </tbody>
-    </table>    <button class="no-print" onclick="saveToPDF()">Zapisz do PDF</button>
+        <tfoot>
+            <tr id="sum-row">
+                <td colspan="12" style="text-align: right; font-weight: bold;">Razem robocizna netto:</td>
+                <td id="sum-cell" style="text-align: center;">0.00</td>
+            </tr>
+        </tfoot>
+    </table>
+    
+    
+    <button class="no-print" onclick="saveToPDF()">Zapisz do PDF</button>
     <!-- Sekcja na podpisy -->
     <div class="signature-section">
         <div class="signature">
-            <p>Podpis Zleceniodawcy:</p>
+            <p>Podpis Montażysty:</p>
             <canvas id="client-signature" class="signature-canvas" width="300" height="100" style="border: 1px solid black;"></canvas>
-            <button onclick="clearCanvas('client-signature')">Wyczyść</button>
+            <button class="no-print" onclick="clearCanvas('client-signature')">Wyczyść</button>
         </div>
         <div class="signature">
-            <p>Podpis Montażysty:</p>
+            <p>Podpis Zleceniodawcy:</p>
             <canvas id="installer-signature" class="signature-canvas" width="300" height="100" style="border: 1px solid black;"></canvas>
-            <button onclick="clearCanvas('installer-signature')">Wyczyść</button>
+            <button class="no-print" onclick="clearCanvas('installer-signature')">Wyczyść</button>
         </div>
+        
     </div>
 
 </body>
@@ -218,10 +243,11 @@ function clearCanvas(canvasId) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
-// Inicjalizuj kanwy
-setupCanvas('client-signature');
-setupCanvas('installer-signature');
 
+    // Inicjalizuj kanwy
+    setupCanvas('client-signature');
+    setupCanvas('installer-signature');
+    
 function generateTableRows(rows) {
     const tableBody = document.getElementById("table-body");
     for (let i = 1; i <= rows; i++) {
@@ -289,7 +315,7 @@ function generateTableRows(rows) {
                 </select>
             </td>
             <td><input type="text" placeholder=""></td>
-            <td><input type="number" class="price-input" placeholder="0"></td>
+            <td><input type="number" class="price-input" placeholder=""></td>
         `;
 
         tableBody.appendChild(row);
@@ -299,7 +325,9 @@ function generateTableRows(rows) {
     document.querySelectorAll('.price-input').forEach(input => {
         input.addEventListener('input', calculateSum);
     });
-}function calculateSum() {
+}
+
+function calculateSum() {
     let sum = 0;
     document.querySelectorAll('.price-input').forEach(input => {
         const value = parseFloat(input.value);
@@ -312,9 +340,15 @@ function generateTableRows(rows) {
     document.getElementById('sum-cell').textContent = sum.toFixed(2);
 }
 
+// Nasłuchiwanie zmian na wszystkich polach w ostatniej kolumnie
+document.querySelectorAll('.price-input').forEach(input => {
+    input.addEventListener('input', calculateSum);
+});
+
 
     // Wygeneruj 12 wierszy
     generateTableRows(12);
+    
     async function saveToPDF() {
     const { jsPDF } = window.jspdf;
 
@@ -355,8 +389,12 @@ function generateTableRows(rows) {
         // Przywróć widoczność elementów z klasą 'no-print'
         document.querySelectorAll('.no-print').forEach(el => el.classList.remove('hidden'));
 
-        // Zapisz PDF
-        doc.save("strona_landscape.pdf");
+        // Pobierz dzisiejszą datę i sformatuj ją
+        const today = new Date();
+        const formattedDate = today.toISOString().split('T')[0]; // Format: YYYY-MM-DD
+
+        // Zapisz PDF z nazwą na podstawie daty
+        doc.save(`wycena_${formattedDate}.pdf`);
     });
 }
 
