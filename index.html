@@ -7,16 +7,66 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            margin: 10px;
+        } 
+        .content {
+            margin-top: 90px; /* Obniżenie treści */
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .form-group {
+            display: flex; /* Ustawienie label i input w jednej linii */
+            align-items: center; /* Wyrównanie elementów w pionie */
+            margin-bottom: 4px;
+        }
+        .form-group label {
+            flex: 0 0 130px; /* Stała szerokość etykiety */
+            font-weight: bold;
+        }
+        .form-group input {
+            flex: 1; /* Input zajmuje pozostałą szerokość */
+            max-width: 400px; /* Maksymalna szerokość pola */
+            padding: 8px 5px; /* Odstępy wewnętrzne */
+            border: none; /* Usunięcie obramowania */
+            border-bottom: 2px solid #ccc; /* Dodanie linii dolnej */
+            outline: none; /* Usunięcie obramowania po zaznaczeniu */
+            transition: border-color 0.3s ease; /* Płynna zmiana koloru */
+        }
+        .form-group input:focus {
+            border-bottom: 2px solid #000; /* Zmiana koloru linii po zaznaczeniu */
         }
         table {
-            border-collapse: collapse;
-        }
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+#montazysta {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid white;
+    width: 300px; /* Szerokość sekcji */
+    position: relative;
+    left: calc(100% - 300px); /* Przesunięcie sekcji na prawo */
+}
+#montazysta h3 {
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #333;
+}
+.no-print {
+    display: block; /* Domyślnie przycisk jest widoczny */
+}
+
+.no-print.hidden {
+    display: none; /* Ukrycie przycisku */
+}
+
         th, td {
             border: 1px solid black;
             padding: 5px;
             text-align: center;
-        }
+        }   
         th {
             background-color: #f2f2f2;
         }
@@ -29,6 +79,38 @@
     </style>
 </head>
 <body>
+
+    <div class="content">
+        <!-- Form z danymi Zleceniodawcy -->
+        <div>
+            <div class="form-group">
+                <label for="clientName">Imię i nazwisko Zleceniodawcy:</label>
+                <input type="text" id="clientName">
+            </div>
+            <div class="form-group">
+                <label for="contractAddress">Adres do umowy:</label>
+                <input type="text" id="contractAddress">
+            </div>
+            <div class="form-group">
+                <label for="measurementAddress">Adres pomiaru:</label>
+                <input type="text" id="measurementAddress">
+            </div>
+            <div class="form-group">
+                <label for="phoneNumber">Telefon:</label>
+                <input type="text" id="phoneNumber">
+            </div>
+        </div>
+    
+        <!-- Informacje o montażyście -->
+        <div id="montazysta">
+            <h3>Informacje o montażyście</h3>
+            <p><strong>Imię i nazwisko:</strong> Jan Kowalski</p>
+            <p><strong>Telefon:</strong> +48 123 456 789</p>
+        </div>
+    </div>
+    
+
+    <!-- Tabela danych -->
     <table id="data-table">
         <thead>
             <tr>
@@ -39,122 +121,273 @@
                 <th style="min-width: 50px;">Grubość muru (cm)</th>
                 <th style="min-width: 100px;">Rodzaj zamka</th>
                 <th style="min-width: 300px;">Inne</th>
-                <th style="min-width: 200px;">Zakres prac przewidzianych do wykonania prez
-                                        Zleceniodawce przed Montażem</th>
+                <th style="min-width: 200px;">Zakres prac przewidzianych do wykonania przez
+                    Zleceniodawce przed Montażem</th>
                 <th style="min-width: 80px;">Strona L/P</th>
                 <th style="min-width: 80px;">Szerokość skrzydła</th>
                 <th style="min-width: 120px;">Zakres ościeżnicy</th>
-                <th style="min-width: 300px;">Zakre prac przewidzianych do wykonania przez Montażystę podczas montażu </th>
+                <th style="min-width: 300px;">Zakres prac przewidzianych do wykonania przez Montażystę podczas montażu</th>
                 <th style="min-width: 90px;">Wycena pracy w kwotach netto</th>
             </tr>
         </thead>
-        <tbody>
-            <tr>
-                <td>1</td>
-                <td><input type="text" placeholder=""></td>
-                <td>
-                    <select>
-                        <option value="" selected></option>
-                        <option value="190">190</option>
-                        <option value="191">191</option>
-                        <option value="192">192</option>
-                        <option value="193">193</option>
-                        <option value="194">194</option>
-                        <option value="195">195</option>
-                    </select>
-                </td>
-                <td>
-                    <select>
-                        <option value="" selected></option>
-                        <option value="190">190</option>
-                        <option value="191">191</option>
-                        <option value="192">192</option>
-                        <option value="193">193</option>
-                        <option value="194">194</option>
-                        <option value="195">195</option>
-                    </select>
-                </td>
-                <td>
-                    <select>
-                        <option value="" selected></option>
-                        <option value="190">190</option>
-                        <option value="191">191</option>
-                        <option value="192">192</option>
-                        <option value="193">193</option>
-                        <option value="194">194</option>
-                        <option value="195">195</option>
-                    </select>
-                </td>
-                <td><input type="text" placeholder=""></td>
-                <td><input type="text" placeholder=""></td>
-                <td><input type="text" placeholder=""></td>
-                <td>
-                    <select>
-                        <option value="" selected></option>
-                        <option value="LW">LW</option>
-                        <option value="PW">PW</option>
-                        <option value="LZ">LZ</option>
-                        <option value="PZ">PZ</option>
-                    </select>
-                </td>
-                <td>    
-                    <input list="optionsList1" placeholder="" />
-                    <datalist id="optionsList1">
-                    <option value="60">60</option>
-                    <option value="70">70</option>
-                    <option value="80">80</option>
-                    <option value="90">90</option>
-                    <option value="100">100</option>
-                </datalist></td>
-                <td>
-                    <input list="optionsList" placeholder="" />
-                    <datalist id="optionsList">
-                        <option value="75-85"></option>
-                        <option value="85-100"></option>
-                        <option value="100-120"></option>
-                        <option value="120-140"></option>
-                        <option value="140-160"></option>
-                    </datalist>
-                </td>
-                
-                <td><input type="text" placeholder=""></td>
-                <td><input type="text" placeholder=""></td>
-
-            </tr>
+        <tbody id="table-body">
+            <!-- Wiersze zostaną dodane dynamicznie -->
         </tbody>
-    </table>
-    <button onclick="saveToPDF()">Zapisz do PDF</button>
+    </table>    <button class="no-print" onclick="saveToPDF()">Zapisz do PDF</button>
+    <!-- Sekcja na podpisy -->
+    <div class="signature-section">
+        <div class="signature">
+            <p>Podpis Zleceniodawcy:</p>
+            <canvas id="client-signature" class="signature-canvas" width="300" height="100" style="border: 1px solid black;"></canvas>
+            <button onclick="clearCanvas('client-signature')">Wyczyść</button>
+        </div>
+        <div class="signature">
+            <p>Podpis Montażysty:</p>
+            <canvas id="installer-signature" class="signature-canvas" width="300" height="100" style="border: 1px solid black;"></canvas>
+            <button onclick="clearCanvas('installer-signature')">Wyczyść</button>
+        </div>
+    </div>
 
-    <!-- Dodanie html2canvas i jsPDF -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-    <script>
-        async function saveToPDF() {
-            const { jsPDF } = window.jspdf;
-    
-            // Ustawienie dokumentu w orientacji poziomej (landscape)
-            const doc = new jsPDF("landscape");
-    
-            // Wybierz element tabeli do renderowania
-            const element = document.getElementById("data-table");
-    
-            // Renderowanie tabeli jako obraz
-            html2canvas(element).then((canvas) => {
-                const imgData = canvas.toDataURL("image/png");
-    
-                // Obliczanie proporcji obrazu
-                const pageWidth = 295; // Szerokość strony A4 w orientacji poziomej (w mm)
-                const imgWidth = pageWidth - 20; // Odjęcie marginesów
-                const imgHeight = (canvas.height * imgWidth) / canvas.width;
-    
-                // Dodanie obrazu do PDF
-                doc.addImage(imgData, "PNG", 10, 10, imgWidth, imgHeight);
-    
-                // Zapisz PDF
-                doc.save("tabela_landscape.pdf");
-            });
+</body>
+
+<!-- Dodanie html2canvas i jsPDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script>
+    // Funkcja inicjalizująca rysowanie na canvas
+   // Funkcja inicjalizująca rysowanie na canvas
+   function setupCanvas(canvasId) {
+        const canvas = document.getElementById(canvasId);
+        const ctx = canvas.getContext('2d');
+        let drawing = false;
+
+        // Rozpocznij rysowanie
+        canvas.addEventListener('mousedown', (event) => {
+            drawing = true;
+            const rect = canvas.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+        });
+        canvas.addEventListener('touchstart', (event) => {
+            drawing = true;
+            const rect = canvas.getBoundingClientRect();
+            const touch = event.touches[0];
+            const x = touch.clientX - rect.left;
+            const y = touch.clientY - rect.top;
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+        });
+
+        // Przestań rysować
+        canvas.addEventListener('mouseup', () => drawing = false);
+        canvas.addEventListener('mouseleave', () => drawing = false);
+        canvas.addEventListener('touchend', () => drawing = false);
+
+        // Rysuj
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('touchmove', draw);
+
+        function draw(event) {
+            if (!drawing) return;
+
+            const rect = canvas.getBoundingClientRect();
+            const x = (event.touches ? event.touches[0].clientX : event.clientX) - rect.left;
+            const y = (event.touches ? event.touches[0].clientY : event.clientY) - rect.top;
+
+            ctx.lineWidth = 2;
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = 'black';
+
+            ctx.lineTo(x, y);
+            ctx.stroke();
         }
+    }
+
+    // Wyczyść kanwę
+    function clearCanvas(canvasId) {
+        const canvas = document.getElementById(canvasId);
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    // Inicjalizuj kanwy
+    setupCanvas('client-signature');
+    setupCanvas('installer-signature');
+function generateTableRows(rows) {
+    const tableBody = document.getElementById("table-body");
+    for (let i = 1; i <= rows; i++) {
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+            <td>${i}</td>
+            <td><input type="text" placeholder=""></td>
+            <td>
+                <select>
+                    <option value="" selected></option>
+                    ${Array.from({ length: 31 }, (_, index) => {
+                        const value = 190 + index;
+                        return `<option value="${value}">${value}</option>`;
+                    }).join('')}
+                </select>
+            </td>
+            <td>
+                <select>
+                    <option value="" selected></option>
+                    ${Array.from({ length: 71 }, (_, index) => {
+                        const value = 50 + index;
+                        return `<option value="${value}">${value}</option>`;
+                    }).join('')}
+                </select>
+            </td>
+            <td>
+                <select>
+                    <option value="" selected></option>
+                    ${Array.from({ length: 17 }, (_, index) => {
+                        const start = 8 + index * 2;
+                        return `<option value="${start}-${start + 2}">${start}-${start + 2}</option>`;
+                    }).join('')}
+                </select>
+            </td>
+            <td><input type="text" placeholder=""></td>
+            <td><input type="text" placeholder=""></td>
+            <td><input type="text" placeholder=""></td>
+            <td>
+                <select>
+                    <option value="" selected></option>
+                    <option value="LW">LW</option>
+                    <option value="PW">PW</option>
+                    <option value="LZ">LZ</option>
+                    <option value="PZ">PZ</option>
+                </select>
+            </td>
+            <td>
+                <select onchange="handleCustomOption(this)">
+                    <option value="" selected></option>
+                    ${[60, 70, 80, 90, 100]
+                        .map(value => `<option value="${value}">${value}</option>`)
+                        .join('')}
+                    <option value="inna">Inna</option>
+                </select>
+            </td>
+            <td>
+                <select onchange="handleCustomOption(this)">
+                    <option value="" selected></option>
+                    ${Array.from({ length: 31 }, (_, index) => {
+                        const start = 75 + index * 10;
+                        return `<option value="${start}-${start + 10}">${start}-${start + 10}</option>`;
+                    }).join('')}
+                    <option value="inna">Inna</option>
+                </select>
+            </td>
+            <td><input type="text" placeholder=""></td>
+            <td><input type="number" class="price-input" placeholder="0"></td>
+        `;
+
+        tableBody.appendChild(row);
+    }
+
+    // Dodaj nasłuchiwanie zmian do pól w ostatniej kolumnie
+    document.querySelectorAll('.price-input').forEach(input => {
+        input.addEventListener('input', calculateSum);
+    });
+}function calculateSum() {
+    let sum = 0;
+    document.querySelectorAll('.price-input').forEach(input => {
+        const value = parseFloat(input.value);
+        if (!isNaN(value)) {
+            sum += value;
+        }
+    });
+
+    // Wyświetl sumę w komórce "sum-cell"
+    document.getElementById('sum-cell').textContent = sum.toFixed(2);
+}
+
+
+    // Wygeneruj 12 wierszy
+    generateTableRows(12);
+    async function saveToPDF() {
+    const { jsPDF } = window.jspdf;
+
+    // Ukryj elementy z klasą 'no-print'
+    document.querySelectorAll('.no-print').forEach(el => el.classList.add('hidden'));
+
+    // Wybierz element całego body
+    const body = document.body;
+
+    // Renderowanie całej strony jako obraz
+    html2canvas(body, {
+        scrollY: 0, // Zapobiega przesuwaniu widoku
+        scale: 2,  // Wyższa rozdzielczość obrazu
+        useCORS: true, // Obsługa CORS dla poprawnego renderowania obrazów
+    }).then((canvas) => {
+        const imgData = canvas.toDataURL("image/png");
+
+        // Oblicz proporcje obrazu dla PDF
+        const pageWidth = 297; // Szerokość strony A4 w mm (landscape)
+        const pageHeight = 210; // Wysokość strony A4 w mm (landscape)
+        const imgHeight = (canvas.height * pageWidth) / canvas.width; // Proporcjonalna wysokość obrazu
+        let heightLeft = imgHeight;
+
+        // Utwórz dokument PDF w orientacji poziomej
+        const doc = new jsPDF("landscape", "mm", "a4");
+        let position = 0;
+
+        // Dodaj obraz do PDF
+        while (heightLeft > 0) {
+            doc.addImage(imgData, "PNG", 0, position, pageWidth, imgHeight);
+            heightLeft -= pageHeight;
+            if (heightLeft > 0) {
+                position -= pageHeight; // Przenieś się na nową stronę
+                doc.addPage();
+            }
+        }
+
+        // Przywróć widoczność elementów z klasą 'no-print'
+        document.querySelectorAll('.no-print').forEach(el => el.classList.remove('hidden'));
+
+        // Zapisz PDF
+        doc.save("strona_landscape.pdf");
+    });
+}
+
+        function handleCustomOption(selectElement) {
+    if (selectElement.value === "inna") {
+        // Zamień <select> na <input>
+        const input = document.createElement("input");
+        input.type = "text";
+        input.placeholder = "Wpisz własną wartość";
+        input.value = ""; // Pusta wartość początkowa
+        input.onblur = function () {
+            // Zamień <input> z powrotem na <select> po opuszczeniu pola
+            restoreSelect(input, selectElement);
+        };
+        selectElement.parentNode.replaceChild(input, selectElement);
+        input.focus(); // Skup się na nowym polu
+    }
+}
+
+function restoreSelect(inputElement, originalSelect) {
+    // Przywróć <select> z nową wartością
+    const select = originalSelect.cloneNode(true);
+    const customValue = inputElement.value.trim();
+    if (customValue !== "") {
+        // Dodaj nową opcję, jeśli użytkownik wpisał coś
+        const newOption = document.createElement("option");
+        newOption.value = customValue;
+        newOption.textContent = customValue;
+        newOption.selected = true;
+        select.appendChild(newOption);
+    }
+    inputElement.parentNode.replaceChild(select, inputElement);
+    select.addEventListener("change", function () {
+        handleCustomOption(select);
+    });
+}
+
     </script>
     
-</body>
+
 </html>
