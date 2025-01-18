@@ -156,65 +156,74 @@
 <script>
     // Funkcja inicjalizująca rysowanie na canvas
    // Funkcja inicjalizująca rysowanie na canvas
-   function setupCanvas(canvasId) {
-        const canvas = document.getElementById(canvasId);
-        const ctx = canvas.getContext('2d');
-        let drawing = false;
+ function setupCanvas(canvasId) {
+    const canvas = document.getElementById(canvasId);
+    const ctx = canvas.getContext('2d');
+    let drawing = false;
 
-        // Rozpocznij rysowanie
-        canvas.addEventListener('mousedown', (event) => {
-            drawing = true;
-            const rect = canvas.getBoundingClientRect();
-            const x = event.clientX - rect.left;
-            const y = event.clientY - rect.top;
-            ctx.beginPath();
-            ctx.moveTo(x, y);
-        });
-        canvas.addEventListener('touchstart', (event) => {
-            drawing = true;
-            const rect = canvas.getBoundingClientRect();
-            const touch = event.touches[0];
-            const x = touch.clientX - rect.left;
-            const y = touch.clientY - rect.top;
-            ctx.beginPath();
-            ctx.moveTo(x, y);
-        });
+    // Rozpocznij rysowanie
+    canvas.addEventListener('mousedown', (event) => {
+        drawing = true;
+        const rect = canvas.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+    });
 
-        // Przestań rysować
-        canvas.addEventListener('mouseup', () => drawing = false);
-        canvas.addEventListener('mouseleave', () => drawing = false);
-        canvas.addEventListener('touchend', () => drawing = false);
+    canvas.addEventListener('touchstart', (event) => {
+        event.preventDefault(); // Zapobiega przewijaniu
+        drawing = true;
+        const rect = canvas.getBoundingClientRect();
+        const touch = event.touches[0];
+        const x = touch.clientX - rect.left;
+        const y = touch.clientY - rect.top;
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+    });
 
-        // Rysuj
-        canvas.addEventListener('mousemove', draw);
-        canvas.addEventListener('touchmove', draw);
+    // Przestań rysować
+    canvas.addEventListener('mouseup', () => drawing = false);
+    canvas.addEventListener('mouseleave', () => drawing = false);
+    canvas.addEventListener('touchend', (event) => {
+        event.preventDefault(); // Zapobiega przewijaniu
+        drawing = false;
+    });
 
-        function draw(event) {
-            if (!drawing) return;
+    // Rysuj
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('touchmove', (event) => {
+        event.preventDefault(); // Zapobiega przewijaniu
+        draw(event);
+    });
 
-            const rect = canvas.getBoundingClientRect();
-            const x = (event.touches ? event.touches[0].clientX : event.clientX) - rect.left;
-            const y = (event.touches ? event.touches[0].clientY : event.clientY) - rect.top;
+    function draw(event) {
+        if (!drawing) return;
 
-            ctx.lineWidth = 2;
-            ctx.lineCap = 'round';
-            ctx.strokeStyle = 'black';
+        const rect = canvas.getBoundingClientRect();
+        const x = (event.touches ? event.touches[0].clientX : event.clientX) - rect.left;
+        const y = (event.touches ? event.touches[0].clientY : event.clientY) - rect.top;
 
-            ctx.lineTo(x, y);
-            ctx.stroke();
-        }
+        ctx.lineWidth = 2;
+        ctx.lineCap = 'round';
+        ctx.strokeStyle = 'black';
+
+        ctx.lineTo(x, y);
+        ctx.stroke();
     }
+}
 
-    // Wyczyść kanwę
-    function clearCanvas(canvasId) {
-        const canvas = document.getElementById(canvasId);
-        const ctx = canvas.getContext('2d');
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }
+// Wyczyść kanwę
+function clearCanvas(canvasId) {
+    const canvas = document.getElementById(canvasId);
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
 
-    // Inicjalizuj kanwy
-    setupCanvas('client-signature');
-    setupCanvas('installer-signature');
+// Inicjalizuj kanwy
+setupCanvas('client-signature');
+setupCanvas('installer-signature');
+
 function generateTableRows(rows) {
     const tableBody = document.getElementById("table-body");
     for (let i = 1; i <= rows; i++) {
