@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,124 +9,155 @@
         body {
             font-family: Arial, sans-serif;
             margin: 10px;
-        } 
+        }
+
         .content {
-        margin-top: 90px; /* Obniżenie treści */
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: flex-start; /* Wyrównanie elementów do początku */
-        gap: 400px; /* Odstępy między sekcjami */
-    }
+            margin-top: 90px;
+            /* Obniżenie treści */
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            gap: 400px;
+        }
 
         .form-group {
-            display: flex; /* Ustawienie label i input w jednej linii */
-            align-items: center; /* Wyrównanie elementów w pionie */
+            display: flex;
+            align-items: center;
             margin-bottom: 4px;
         }
+
         .form-group label {
-            flex: 0 0 130px; /* Stała szerokość etykiety */
+            flex: 0 0 130px;
             font-weight: bold;
         }
+
         .form-group input {
-            flex: 1; /* Input zajmuje pozostałą szerokość */
-            max-width: 400px; /* Maksymalna szerokość pola */
-            padding: 8px 5px; /* Odstępy wewnętrzne */
-            border: none; /* Usunięcie obramowania */
-            border-bottom: 2px solid #ccc; /* Dodanie linii dolnej */
-            outline: none; /* Usunięcie obramowania po zaznaczeniu */
-            transition: border-color 0.3s ease; /* Płynna zmiana koloru */
+            flex: 1;
+            max-width: 400px;
+            padding: 8px 5px;
+            border: none;
+            border-bottom: 2px solid #ccc;
+            outline: none;
+            transition: border-color 0.3s ease;
         }
+
         .form-group input:focus {
-            border-bottom: 2px solid #000; /* Zmiana koloru linii po zaznaczeniu */
+            border-bottom: 2px solid #000;
         }
+
         table {
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-#montazysta {
-        padding: 10px;
-        max-width: 300px; /* Ograniczenie szerokości */
-        flex-shrink: 0; /* Zapobieganie skalowaniu sekcji */
-    }
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
 
-    #montazysta h3 {
-        margin-bottom: 10px;
-        font-size: 18px;
-        color: #333;
-    }
+        #montazysta {
+            padding: 10px;
+            max-width: 300px;
+            flex-shrink: 0;
+        }
 
-.no-print {
-    display: block; /* Domyślnie przycisk jest widoczny */
-}
-.signature-section {
-    display: flex; /* Ustaw elementy w jednej linii */
-    justify-content: flex-end; /* Wyrównanie sekcji do prawej */
-    align-items: center; /* Wyrównanie w pionie */
-    margin-top: 20px; /* Odstęp od góry */
-    gap: 20px; /* Odstęp między podpisami */
-}
+        #montazysta h3 {
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: #333;
+        }
 
-.signature {
-    display: flex; /* Ustaw zawartość w jednej linii */
-    flex-direction: column; /* Ustaw elementy w kolumnie */
-    align-items: center; /* Wyśrodkuj zawartość */
-    text-align: center;
-}
+        .no-print {
+            display: block;
+        }
+
+        .signature-section {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: 20px;
+            gap: 20px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            position: absolute;
+        }
+
+        .signature {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 450px;
+        }
 
 
-.no-print.hidden {
-    display: none; /* Ukrycie przycisku */
-}
 
-        th, td {
+        .no-print.hidden {
+            display: none;
+        }
+
+        th,
+        td {
             border: 1px solid black;
             padding: 5px;
             text-align: center;
-        }   
+        }
+
         th {
             background-color: #f2f2f2;
         }
-        input, select {
+
+        input,
+        select {
             width: 100%;
             box-sizing: border-box;
             border: none;
             padding: 5px;
-        }
+        }   #page-title {
+    position: absolute;
+    top: 0; /* Ustawia nagłówek u samej góry strony */
+    left: 600px; /* Ustawia odległość od lewej krawędzi */
+    text-align: center; /* Wyśrodkowanie tekstu */
+    font-size: 24px; /* Wielkość czcionki */
+    font-weight: bold; /* Pogrubienie tekstu */
+    margin: 0; /* Usuwa domyślne marginesy */
+    padding: 20px; /* Opcjonalny odstęp wewnętrzny */
+}
     </style>
 </head>
+
 <body>
+    <h1 id="page-title">Pomiar przed montażem stolarki drzwiowej</h1>
 
     <div class="content">
+        
         <!-- Form z danymi Zleceniodawcy -->
-        <div>
-            <div class="form-group">
-                <label for="clientName">Imię i nazwisko Zleceniodawcy:</label>
-                <input type="text" id="clientName">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 500px; padding: 20px;">
+            <!-- Sekcja Zleceniodawcy -->
+            <div>
+                <div class="form-group">
+                    <label for="clientName">Imię i nazwisko:</label>
+                    <input type="text" id="clientName" style="min-width: 300px;">
+                </div>
+                <div class="form-group">
+                    <label for="contractAddress">Adres do umowy:</label>
+                    <input type="text" id="contractAddress">
+                </div>
+                <div class="form-group">
+                    <label for="measurementAddress">Adres pomiaru:</label>
+                    <input type="text" id="measurementAddress">
+                </div>
+                <div class="form-group">
+                    <label for="phoneNumber">Telefon:</label>
+                    <input type="text" id="phoneNumber">
+                </div>
+            </div>
 
+            <!-- Sekcja Montażysty -->
+            <div id="montazysta" style="margin-left: 50px;">
+                <h3>Informacje o montażyście</h3>
+                <p><strong>Imię i nazwisko:</strong> Jan Kowalski</p>
+                <p><strong>Telefon:</strong> +48 123 456 789</p>
             </div>
-            <div class="form-group">
-                <label for="contractAddress">Adres do umowy:</label>
-                <input type="text" id="contractAddress">
-            </div>
-            <div class="form-group">
-                <label for="measurementAddress">Adres pomiaru:</label>
-                <input type="text" id="measurementAddress">
-            </div>
-            <div class="form-group">
-                <label for="phoneNumber">Telefon:</label>
-                <input type="text" id="phoneNumber">
-            </div>
-            
-        </div>
-    
-        <!-- Informacje o montażyście -->
-        <div id="montazysta">
-            <h3>Informacje o montażyście</h3>
-            <p><strong>Imię i nazwisko:</strong> Jan Kowalski</p>
-            <p><strong>Telefon:</strong> +48 123 456 789</p>
         </div>
     </div>
-    
+
 
     <table id="data-table">
         <thead>
@@ -134,14 +166,18 @@
                 <th style="min-width: 120px;">Rodzaj pomieszczenia</th>
                 <th style="min-width: 30px;">Wysokość otworu (cm)</th>
                 <th style="min-width: 30px;">Szerokość otworu (cm)</th>
-                <th style="min-width: 50px;">Grubość muru (cm)</th>
-                <th style="min-width: 80px;">Rodzaj zamka</th>
+                <th style="min-width: 160px;">Grubość muru (cm)</th>
+                <th style="min-width: 120px;">Rodzaj drzwi</th>
+
+                <th style="min-width: 140px;">Rodzaj zamka</th>
                 <th style="min-width: 230px;">Inne</th>
-                <th style="min-width: 200px;">Zakres prac przewidzianych do wykonania przez Zleceniodawce przed Montażem</th>
+                <th style="min-width: 200px;">Zakres prac przewidzianych do wykonania przez Zleceniodawce przed Montażem
+                </th>
                 <th style="min-width: 80px;">Strona L/P</th>
                 <th style="min-width: 80px;">Szerokość skrzydła</th>
                 <th style="min-width: 80px;">Zakres ościeżnicy</th>
-                <th style="min-width: 230px;">Zakres prac przewidzianych do wykonania przez Montażystę podczas montażu</th>
+                <th style="min-width: 230px;">Zakres prac przewidzianych do wykonania przez Montażystę podczas montażu
+                </th>
                 <th style="min-width: 90px;">Wycena pracy w kwotach netto</th>
             </tr>
         </thead>
@@ -155,22 +191,24 @@
             </tr>
         </tfoot>
     </table>
-    
-    
+
+
     <button class="no-print" onclick="saveToPDF()">Zapisz do PDF</button>
     <!-- Sekcja na podpisy -->
     <div class="signature-section">
         <div class="signature">
             <p>Podpis Montażysty:</p>
-            <canvas id="client-signature" class="signature-canvas" width="300" height="100" style="border: 1px solid black;"></canvas>
+            <canvas id="client-signature" class="signature-canvas" width="300" height="100"
+                style="border: 1px solid black;"></canvas>
             <button class="no-print" onclick="clearCanvas('client-signature')">Wyczyść</button>
         </div>
         <div class="signature">
             <p>Podpis Zleceniodawcy:</p>
-            <canvas id="installer-signature" class="signature-canvas" width="300" height="100" style="border: 1px solid black;"></canvas>
+            <canvas id="installer-signature" class="signature-canvas" width="300" height="100"
+                style="border: 1px solid black;"></canvas>
             <button class="no-print" onclick="clearCanvas('installer-signature')">Wyczyść</button>
         </div>
-        
+
     </div>
 
 </body>
@@ -179,144 +217,169 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 <script>
-function setupCanvas(canvasId) {
-    const canvas = document.getElementById(canvasId);
-    const ctx = canvas.getContext('2d');
-    let drawing = false;
+    function setupCanvas(canvasId) {
+        const canvas = document.getElementById(canvasId);
+        const ctx = canvas.getContext('2d');
+        let drawing = false;
 
-    // Rozpocznij rysowanie
-    canvas.addEventListener('mousedown', (event) => {
-        drawing = true;
-        const rect = canvas.getBoundingClientRect();
-        const x = event.clientX - rect.left;
-        const y = event.clientY - rect.top;
-        ctx.beginPath();
-        ctx.moveTo(x, y);
-    });
+        // Rozpocznij rysowanie
+        canvas.addEventListener('mousedown', (event) => {
+            drawing = true;
+            const rect = canvas.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+        });
 
-    canvas.addEventListener('touchstart', (event) => {
-        event.preventDefault(); // Zapobiega przewijaniu
-        drawing = true;
-        const rect = canvas.getBoundingClientRect();
-        const touch = event.touches[0];
-        const x = touch.clientX - rect.left;
-        const y = touch.clientY - rect.top;
-        ctx.beginPath();
-        ctx.moveTo(x, y);
-    });
+        canvas.addEventListener('touchstart', (event) => {
+            event.preventDefault(); // Zapobiega przewijaniu
+            drawing = true;
+            const rect = canvas.getBoundingClientRect();
+            const touch = event.touches[0];
+            const x = touch.clientX - rect.left;
+            const y = touch.clientY - rect.top;
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+        });
 
-    // Przestań rysować
-    canvas.addEventListener('mouseup', () => drawing = false);
-    canvas.addEventListener('mouseleave', () => drawing = false);
-    canvas.addEventListener('touchend', (event) => {
-        event.preventDefault(); // Zapobiega przewijaniu
-        drawing = false;
-    });
+        // Przestań rysować
+        canvas.addEventListener('mouseup', () => drawing = false);
+        canvas.addEventListener('mouseleave', () => drawing = false);
+        canvas.addEventListener('touchend', (event) => {
+            event.preventDefault(); // Zapobiega przewijaniu
+            drawing = false;
+        });
 
-    // Rysuj
-    canvas.addEventListener('mousemove', draw);
-    canvas.addEventListener('touchmove', (event) => {
-        event.preventDefault(); // Zapobiega przewijaniu
-        draw(event);
-    });
+        // Rysuj
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('touchmove', (event) => {
+            event.preventDefault(); // Zapobiega przewijaniu
+            draw(event);
+        });
 
-    function draw(event) {
-        if (!drawing) return;
+        function draw(event) {
+            if (!drawing) return;
 
-        const rect = canvas.getBoundingClientRect();
-        const x = (event.touches ? event.touches[0].clientX : event.clientX) - rect.left;
-        const y = (event.touches ? event.touches[0].clientY : event.clientY) - rect.top;
+            const rect = canvas.getBoundingClientRect();
+            const x = (event.touches ? event.touches[0].clientX : event.clientX) - rect.left;
+            const y = (event.touches ? event.touches[0].clientY : event.clientY) - rect.top;
 
-        ctx.lineWidth = 2;
-        ctx.lineCap = 'round';
-        ctx.strokeStyle = 'black';
+            ctx.lineWidth = 2;
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = 'black';
 
-        ctx.lineTo(x, y);
-        ctx.stroke();
+            ctx.lineTo(x, y);
+            ctx.stroke();
+        }
     }
-}
 
-// Wyczyść kanwę
-function clearCanvas(canvasId) {
-    const canvas = document.getElementById(canvasId);
-    const ctx = canvas.getContext('2d');
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-}
+    // Wyczyść kanwę
+    function clearCanvas(canvasId) {
+        const canvas = document.getElementById(canvasId);
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
 
 
     // Inicjalizuj kanwy
     setupCanvas('client-signature');
     setupCanvas('installer-signature');
-    
-function generateTableRows(rows) {
+
+    function generateTableRows(rows) {
     const tableBody = document.getElementById("table-body");
     for (let i = 1; i <= rows; i++) {
         const row = document.createElement("tr");
 
         row.innerHTML = `
-            <td>${i}</td>
-            <td><input type="text" placeholder=""></td>
-            <td>
-                <select>
-                    <option value="" selected></option>
-                    ${Array.from({ length: 31 }, (_, index) => {
-                        const value = 190 + index;
-                        return `<option value="${value}">${value}</option>`;
-                    }).join('')}
-                </select>
-            </td>
-            <td>
-                <select>
-                    <option value="" selected></option>
-                    ${Array.from({ length: 71 }, (_, index) => {
-                        const value = 50 + index;
-                        return `<option value="${value}">${value}</option>`;
-                    }).join('')}
-                </select>
-            </td>
-            <td>
-                <select>
-                    <option value="" selected></option>
-                    ${Array.from({ length: 17 }, (_, index) => {
-                        const start = 8 + index * 2;
-                        return `<option value="${start}-${start + 2}">${start}-${start + 2}</option>`;
-                    }).join('')}
-                </select>
-            </td>
-            <td><input type="text" placeholder=""></td>
-            <td><input type="text" placeholder=""></td>
-            <td><input type="text" placeholder=""></td>
-            <td>
-                <select>
-                    <option value="" selected></option>
-                    <option value="LW">LW</option>
-                    <option value="PW">PW</option>
-                    <option value="LZ">LZ</option>
-                    <option value="PZ">PZ</option>
-                </select>
-            </td>
-            <td>
-                <select onchange="handleCustomOption(this)">
-                    <option value="" selected></option>
-                    ${[60, 70, 80, 90, 100]
-                        .map(value => `<option value="${value}">${value}</option>`)
-                        .join('')}
-                    <option value="inna">Inna</option>
-                </select>
-            </td>
-            <td>
-                <select onchange="handleCustomOption(this)">
-                    <option value="" selected></option>
-                    ${Array.from({ length: 31 }, (_, index) => {
-                        const start = 75 + index * 10;
-                        return `<option value="${start}-${start + 10}">${start}-${start + 10}</option>`;
-                    }).join('')}
-                    <option value="inna">Inna</option>
-                </select>
-            </td>
-            <td><input type="text" placeholder=""></td>
-            <td><input type="number" class="price-input" placeholder=""></td>
-        `;
+        <td>${i}</td>
+        <td><input type="text" placeholder=""></td>
+        <td>
+            <select>
+                <option value="" selected></option>
+                ${Array.from({ length: 31 }, (_, index) => {
+                    const value = 190 + index;
+                    return `<option value="${value}">${value}</option>`;
+                }).join('')}
+            </select>
+        </td>
+        <td>
+            <select>
+                <option value="" selected></option>
+                ${Array.from({ length: 71 }, (_, index) => {
+                    const value = 50 + index;
+                    return `<option value="${value}">${value}</option>`;
+                }).join('')}
+            </select>
+        </td>
+<td>
+    <div style="display: flex; align-items: center; gap: 5px;">
+        <select>
+            <option value="" selected></option>
+            ${Array.from({ length: (32 - 8) * 2 + 1 }, (_, index) => {
+                const value = (8 + index * 0.5).toFixed(1); // Generowanie wartości z krokiem 0.5
+                return `<option value="${value}">${value}</option>`;
+            }).join('')}
+        </select>
+        <label style="display: flex; align-items: center; gap: 5px;">
+            <input type="checkbox" value="+1.5"> +1,5cm płytki
+        </label>
+    </div>
+</td>
+             <td>
+            <select onchange="handleCustomOption(this)">
+                <option value="" selected></option>
+                ${["Przylgow", "Bezprzylgowe", "Rewers", "Ukryte" ,"Ukryte rewers" , "Przesuwane" , "Techniczne" , "PPOŻ" , "Tunel"
+                 ]
+                .map(value => `<option value="${value}">${value}</option>`)
+                .join('')}
+                <option value="inna">Inna</option>
+            </select>
+        </td>
+             <td>
+            <select onchange="handleCustomOption(this)">
+                <option value="" selected></option>
+                ${["OSZCZĘDNOŚCIOWY", "WC", "KLUCZ", "YALE" ]
+                .map(value => `<option value="${value}">${value}</option>`)
+                .join('')}
+                <option value="inna">Inna</option>
+            </select>
+        </td>
+        <td><input type="text" placeholder=""></td>
+
+     
+        <td><input type="text" placeholder=""></td>
+        <td>
+            <select>
+                <option value="" selected></option>
+                <option value="LW">LW</option>
+                <option value="PW">PW</option>
+                <option value="LZ">LZ</option>
+                <option value="PZ">PZ</option>
+            </select>
+        </td>
+        <td>
+            <select onchange="handleCustomOption(this)">
+                <option value="" selected></option>
+                ${[60, 70, 80, 90, 100]
+                .map(value => `<option value="${value}">${value}</option>`)
+                .join('')}
+                <option value="inna">Inna</option>
+            </select>
+        </td>
+        <td>
+            <select onchange="handleCustomOption(this)">
+                <option value="" selected></option>
+                ${Array.from({ length: 31 }, (_, index) => {
+                    const start = 75 + index * 10;
+                    return `<option value="${start}-${start + 10}">${start}-${start + 10}</option>`;
+                }).join('')}
+                <option value="inna">Inna</option>
+            </select>
+        </td>
+        <td><input type="text" placeholder=""></td>
+        <td><input type="number" class="price-input" placeholder=""></td>
+    `;
 
         tableBody.appendChild(row);
     }
@@ -327,112 +390,112 @@ function generateTableRows(rows) {
     });
 }
 
-function calculateSum() {
-    let sum = 0;
+    function calculateSum() {
+        let sum = 0;
+        document.querySelectorAll('.price-input').forEach(input => {
+            const value = parseFloat(input.value);
+            if (!isNaN(value)) {
+                sum += value;
+            }
+        });
+
+        // Wyświetl sumę w komórce "sum-cell"
+        document.getElementById('sum-cell').textContent = sum.toFixed(2);
+    }
+
+    // Nasłuchiwanie zmian na wszystkich polach w ostatniej kolumnie
     document.querySelectorAll('.price-input').forEach(input => {
-        const value = parseFloat(input.value);
-        if (!isNaN(value)) {
-            sum += value;
-        }
+        input.addEventListener('input', calculateSum);
     });
-
-    // Wyświetl sumę w komórce "sum-cell"
-    document.getElementById('sum-cell').textContent = sum.toFixed(2);
-}
-
-// Nasłuchiwanie zmian na wszystkich polach w ostatniej kolumnie
-document.querySelectorAll('.price-input').forEach(input => {
-    input.addEventListener('input', calculateSum);
-});
 
 
     // Wygeneruj 12 wierszy
-    generateTableRows(12);
-    
+    generateTableRows(24);
+
     async function saveToPDF() {
-    const { jsPDF } = window.jspdf;
+        const { jsPDF } = window.jspdf;
 
-    // Ukryj elementy z klasą 'no-print'
-    document.querySelectorAll('.no-print').forEach(el => el.classList.add('hidden'));
+        // Ukryj elementy z klasą 'no-print'
+        document.querySelectorAll('.no-print').forEach(el => el.classList.add('hidden'));
 
-    // Wybierz element całego body
-    const body = document.body;
+        // Wybierz element całego body
+        const body = document.body;
 
-    // Renderowanie całej strony jako obraz
-    html2canvas(body, {
-        scrollY: 0, // Zapobiega przesuwaniu widoku
-        scale: 2,  // Wyższa rozdzielczość obrazu
-        useCORS: true, // Obsługa CORS dla poprawnego renderowania obrazów
-    }).then((canvas) => {
-        const imgData = canvas.toDataURL("image/png");
+        // Renderowanie całej strony jako obraz
+        html2canvas(body, {
+            scrollY: 0, // Zapobiega przesuwaniu widoku
+            scale: 2,  // Wyższa rozdzielczość obrazu
+            useCORS: true, // Obsługa CORS dla poprawnego renderowania obrazów
+        }).then((canvas) => {
+            const imgData = canvas.toDataURL("image/png");
 
-        // Oblicz proporcje obrazu dla PDF
-        const pageWidth = 297; // Szerokość strony A4 w mm (landscape)
-        const pageHeight = 210; // Wysokość strony A4 w mm (landscape)
-        const imgHeight = (canvas.height * pageWidth) / canvas.width; // Proporcjonalna wysokość obrazu
-        let heightLeft = imgHeight;
+            // Oblicz proporcje obrazu dla PDF
+            const pageWidth = 297; // Szerokość strony A4 w mm (landscape)
+            const pageHeight = 210; // Wysokość strony A4 w mm (landscape)
+            const imgHeight = (canvas.height * pageWidth) / canvas.width; // Proporcjonalna wysokość obrazu
+            let heightLeft = imgHeight;
 
-        // Utwórz dokument PDF w orientacji poziomej
-        const doc = new jsPDF("landscape", "mm", "a4");
-        let position = 0;
+            // Utwórz dokument PDF w orientacji poziomej
+            const doc = new jsPDF("landscape", "mm", "a4");
+            let position = 0;
 
-        // Dodaj obraz do PDF
-        while (heightLeft > 0) {
-            doc.addImage(imgData, "PNG", 0, position, pageWidth, imgHeight);
-            heightLeft -= pageHeight;
-            if (heightLeft > 0) {
-                position -= pageHeight; // Przenieś się na nową stronę
-                doc.addPage();
+            // Dodaj obraz do PDF
+            while (heightLeft > 0) {
+                doc.addImage(imgData, "PNG", 0, position, pageWidth, imgHeight);
+                heightLeft -= pageHeight;
+                if (heightLeft > 0) {
+                    position -= pageHeight; // Przenieś się na nową stronę
+                    doc.addPage();
+                }
             }
+
+            // Przywróć widoczność elementów z klasą 'no-print'
+            document.querySelectorAll('.no-print').forEach(el => el.classList.remove('hidden'));
+
+            // Pobierz dzisiejszą datę i sformatuj ją
+            const today = new Date();
+            const formattedDate = today.toISOString().split('T')[0]; // Format: YYYY-MM-DD
+
+            // Zapisz PDF z nazwą na podstawie daty
+            doc.save(`wycena_${formattedDate}.pdf`);
+        });
+    }
+
+    function handleCustomOption(selectElement) {
+        if (selectElement.value === "inna") {
+            // Zamień <select> na <input>
+            const input = document.createElement("input");
+            input.type = "text";
+            input.placeholder = "Wpisz własną wartość";
+            input.value = ""; // Pusta wartość początkowa
+            input.onblur = function () {
+                // Zamień <input> z powrotem na <select> po opuszczeniu pola
+                restoreSelect(input, selectElement);
+            };
+            selectElement.parentNode.replaceChild(input, selectElement);
+            input.focus(); // Skup się na nowym polu
         }
-
-        // Przywróć widoczność elementów z klasą 'no-print'
-        document.querySelectorAll('.no-print').forEach(el => el.classList.remove('hidden'));
-
-        // Pobierz dzisiejszą datę i sformatuj ją
-        const today = new Date();
-        const formattedDate = today.toISOString().split('T')[0]; // Format: YYYY-MM-DD
-
-        // Zapisz PDF z nazwą na podstawie daty
-        doc.save(`wycena_${formattedDate}.pdf`);
-    });
-}
-
-        function handleCustomOption(selectElement) {
-    if (selectElement.value === "inna") {
-        // Zamień <select> na <input>
-        const input = document.createElement("input");
-        input.type = "text";
-        input.placeholder = "Wpisz własną wartość";
-        input.value = ""; // Pusta wartość początkowa
-        input.onblur = function () {
-            // Zamień <input> z powrotem na <select> po opuszczeniu pola
-            restoreSelect(input, selectElement);
-        };
-        selectElement.parentNode.replaceChild(input, selectElement);
-        input.focus(); // Skup się na nowym polu
     }
-}
 
-function restoreSelect(inputElement, originalSelect) {
-    // Przywróć <select> z nową wartością
-    const select = originalSelect.cloneNode(true);
-    const customValue = inputElement.value.trim();
-    if (customValue !== "") {
-        // Dodaj nową opcję, jeśli użytkownik wpisał coś
-        const newOption = document.createElement("option");
-        newOption.value = customValue;
-        newOption.textContent = customValue;
-        newOption.selected = true;
-        select.appendChild(newOption);
+    function restoreSelect(inputElement, originalSelect) {
+        // Przywróć <select> z nową wartością
+        const select = originalSelect.cloneNode(true);
+        const customValue = inputElement.value.trim();
+        if (customValue !== "") {
+            // Dodaj nową opcję, jeśli użytkownik wpisał coś
+            const newOption = document.createElement("option");
+            newOption.value = customValue;
+            newOption.textContent = customValue;
+            newOption.selected = true;
+            select.appendChild(newOption);
+        }
+        inputElement.parentNode.replaceChild(select, inputElement);
+        select.addEventListener("change", function () {
+            handleCustomOption(select);
+        });
     }
-    inputElement.parentNode.replaceChild(select, inputElement);
-    select.addEventListener("change", function () {
-        handleCustomOption(select);
-    });
-}
 
-    </script>
-    
+</script>
+
 
 </html>
