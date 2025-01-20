@@ -66,7 +66,6 @@
             display: block;
         }
 
-
         .signature-section {
             display: flex;
             justify-content: flex-end;
@@ -103,22 +102,13 @@
         th {
             background-color: #f2f2f2;
         }
-td input[type="checkbox"] + label {
-    margin: 0;
-    padding: 0;
-    display: inline-block; /* Ustawia elementy w linii */
-}
-td input[type="checkbox"] {
-    margin: 0;
-    padding: 0;
-}
 
         input,
         select {
             width: 100%;
             box-sizing: border-box;
             border: none;
-            padding: 8px;
+            padding: 5px;
         }
 
         #page-title {
@@ -131,9 +121,6 @@ td input[type="checkbox"] {
             margin: 0;
             padding: 20px;
         }
-        .select-small {
-    width: 50px; /* Ustaw żądaną szerokość */
-}
     </style>
 </head>
 
@@ -179,7 +166,7 @@ td input[type="checkbox"] {
                 <th style="min-width: 120px;">Rodzaj pomieszczenia</th>
                 <th style="min-width: 30px;">Wysokość otworu (cm)</th>
                 <th style="min-width: 30px;">Szerokość otworu (cm)</th>
-                <th style="min-width: 250px;">Grubość muru (cm)</th>
+                <th style="min-width: 200px;">Grubość muru (cm)</th>
                 <th style="min-width: 120px;">Rodzaj drzwi</th>
 
                 <th style="min-width: 140px;">Rodzaj zamka</th>
@@ -320,15 +307,15 @@ td input[type="checkbox"] {
             </select>
         </td>
 <td>
-    <div style="display: flex; align-items: center; gap: 5px;">
-        <select class="select-small">
+    <div style="display: flex; align-items: center; gap: 0;">
+        <select style="width: 50px; margin: 0; padding: 0;">
             <option value="" selected></option>
             ${Array.from({ length: (32 - 8) * 2 + 1 }, (_, index) => {
                 const value = (8 + index * 0.5).toFixed(1);
                 return `<option value="${value}">${value}</option>`;
             }).join('')}
         </select>
-        <label style="display: flex; align-items: center; gap: 5px;">
+        <label style="margin: 0; padding: 0; display: flex; align-items: center;">
             <input type="checkbox" value="+1.5"> +1,5cm płytki
         </label>
     </div>
