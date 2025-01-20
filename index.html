@@ -307,20 +307,19 @@
             </select>
         </td>
 <td>
-    <div style="display: flex; align-items: center; gap: 0;">
-        <select style="width: 50px; margin: 0; padding: 0;">
+    <div style="display: flex; align-items: center; gap: 5px;">
+        <select>
             <option value="" selected></option>
             ${Array.from({ length: (32 - 8) * 2 + 1 }, (_, index) => {
                 const value = (8 + index * 0.5).toFixed(1);
                 return `<option value="${value}">${value}</option>`;
             }).join('')}
         </select>
-        <label style="margin: 0; padding: 0; display: flex; align-items: center;">
-            <input type="checkbox" value="+1.5"> +1,5cm płytki
+        <label style="display: flex; align-items: center; gap: 5px;">
+            <input type="checkbox" value="+1.5"> +1,5cm płytki</input>
         </label>
     </div>
 </td>
-
              <td>
             <select onchange="handleCustomOption(this)">
                 <option value="" selected></option>
