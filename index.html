@@ -451,7 +451,7 @@ select {
 
         html2canvas(body, {
             scrollY: 0,
-            scale: 2,
+            scale: 1,
             useCORS: true,
         }).then((canvas) => {
             const imgData = canvas.toDataURL("image/png");
@@ -468,7 +468,8 @@ select {
 
 
             while (heightLeft > 0) {
-                doc.addImage(imgData, "PNG", 0, position, pageWidth, imgHeight);
+               doc.addImage(imgData, "JPEG", 0, position, pageWidth, imgHeight, undefined, "FAST");
+
                 heightLeft -= pageHeight;
                 if (heightLeft > 0) {
                     position -= pageHeight;
