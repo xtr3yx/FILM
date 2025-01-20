@@ -123,6 +123,15 @@ td input[type="checkbox"] {
             font-size: 18px;
 
         }
+td select {
+    width: 100%; /* Dopasowanie do pełnej szerokości komórki */
+    height: 100%; /* Dopasowanie do pełnej wysokości komórki */
+    box-sizing: border-box; /* Uwzględnienie paddingu i obramowania w rozmiarze */
+    border: none; /* Usuń obramowanie, jeśli nie jest potrzebne */
+    padding: 5px; /* Opcjonalne odstępy wewnętrzne */
+    font-size: 14px; /* Dopasowanie rozmiaru czcionki */
+}
+
 select {
     appearance: none; /* Usuwa natywne style przeglądarki */
     -moz-appearance: none;
