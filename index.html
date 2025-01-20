@@ -65,6 +65,9 @@
         .no-print {
             display: block;
         }
+.select-small {
+    width: 50px; /* Ustaw żądaną szerokość */
+}
 
         .signature-section {
             display: flex;
@@ -316,8 +319,8 @@ td input[type="checkbox"] {
             </select>
         </td>
 <td>
-    <div style="display: flex; align-items: center; gap: 0px;">
-        <select>
+    <div style="display: flex; align-items: center; gap: 5px;">
+        <select class="select-small">
             <option value="" selected></option>
             ${Array.from({ length: (32 - 8) * 2 + 1 }, (_, index) => {
                 const value = (8 + index * 0.5).toFixed(1);
@@ -329,6 +332,7 @@ td input[type="checkbox"] {
         </label>
     </div>
 </td>
+
              <td>
             <select onchange="handleCustomOption(this)">
                 <option value="" selected></option>
