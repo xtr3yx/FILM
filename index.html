@@ -109,16 +109,18 @@
             box-sizing: border-box;
             border: none;
             padding: 5px;
-        }   #page-title {
-    position: absolute;
-    top: 0; /* Ustawia nagłówek u samej góry strony */
-    left: 600px; /* Ustawia odległość od lewej krawędzi */
-    text-align: center; /* Wyśrodkowanie tekstu */
-    font-size: 24px; /* Wielkość czcionki */
-    font-weight: bold; /* Pogrubienie tekstu */
-    margin: 0; /* Usuwa domyślne marginesy */
-    padding: 20px; /* Opcjonalny odstęp wewnętrzny */
-}
+        }
+
+        #page-title {
+            position: absolute;
+            top: 0;
+            left: 600px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0;
+            padding: 20px;
+        }
     </style>
 </head>
 
@@ -126,10 +128,8 @@
     <h1 id="page-title">Pomiar przed montażem stolarki drzwiowej</h1>
 
     <div class="content">
-        
-        <!-- Form z danymi Zleceniodawcy -->
+
         <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 500px; padding: 20px;">
-            <!-- Sekcja Zleceniodawcy -->
             <div>
                 <div class="form-group">
                     <label for="clientName">Imię i nazwisko:</label>
@@ -182,7 +182,6 @@
             </tr>
         </thead>
         <tbody id="table-body">
-            <!-- Wiersze będą generowane dynamicznie -->
         </tbody>
         <tfoot>
             <tr id="sum-row">
@@ -222,7 +221,6 @@
         const ctx = canvas.getContext('2d');
         let drawing = false;
 
-        // Rozpocznij rysowanie
         canvas.addEventListener('mousedown', (event) => {
             drawing = true;
             const rect = canvas.getBoundingClientRect();
@@ -233,7 +231,7 @@
         });
 
         canvas.addEventListener('touchstart', (event) => {
-            event.preventDefault(); // Zapobiega przewijaniu
+            event.preventDefault();
             drawing = true;
             const rect = canvas.getBoundingClientRect();
             const touch = event.touches[0];
@@ -243,18 +241,16 @@
             ctx.moveTo(x, y);
         });
 
-        // Przestań rysować
         canvas.addEventListener('mouseup', () => drawing = false);
         canvas.addEventListener('mouseleave', () => drawing = false);
         canvas.addEventListener('touchend', (event) => {
-            event.preventDefault(); // Zapobiega przewijaniu
+            event.preventDefault();
             drawing = false;
         });
 
-        // Rysuj
         canvas.addEventListener('mousemove', draw);
         canvas.addEventListener('touchmove', (event) => {
-            event.preventDefault(); // Zapobiega przewijaniu
+            event.preventDefault();
             draw(event);
         });
 
@@ -274,7 +270,6 @@
         }
     }
 
-    // Wyczyść kanwę
     function clearCanvas(canvasId) {
         const canvas = document.getElementById(canvasId);
         const ctx = canvas.getContext('2d');
@@ -282,34 +277,33 @@
     }
 
 
-    // Inicjalizuj kanwy
     setupCanvas('client-signature');
     setupCanvas('installer-signature');
 
     function generateTableRows(rows) {
-    const tableBody = document.getElementById("table-body");
-    for (let i = 1; i <= rows; i++) {
-        const row = document.createElement("tr");
+        const tableBody = document.getElementById("table-body");
+        for (let i = 1; i <= rows; i++) {
+            const row = document.createElement("tr");
 
-        row.innerHTML = `
+            row.innerHTML = `
         <td>${i}</td>
         <td><input type="text" placeholder=""></td>
         <td>
             <select>
                 <option value="" selected></option>
                 ${Array.from({ length: 31 }, (_, index) => {
-                    const value = 190 + index;
-                    return `<option value="${value}">${value}</option>`;
-                }).join('')}
+                const value = 190 + index;
+                return `<option value="${value}">${value}</option>`;
+            }).join('')}
             </select>
         </td>
         <td>
             <select>
                 <option value="" selected></option>
                 ${Array.from({ length: 71 }, (_, index) => {
-                    const value = 50 + index;
-                    return `<option value="${value}">${value}</option>`;
-                }).join('')}
+                const value = 50 + index;
+                return `<option value="${value}">${value}</option>`;
+            }).join('')}
             </select>
         </td>
 <td>
@@ -317,7 +311,7 @@
         <select>
             <option value="" selected></option>
             ${Array.from({ length: (32 - 8) * 2 + 1 }, (_, index) => {
-                const value = (8 + index * 0.5).toFixed(1); // Generowanie wartości z krokiem 0.5
+                const value = (8 + index * 0.5).toFixed(1);
                 return `<option value="${value}">${value}</option>`;
             }).join('')}
         </select>
@@ -329,19 +323,19 @@
              <td>
             <select onchange="handleCustomOption(this)">
                 <option value="" selected></option>
-                ${["Przylgow", "Bezprzylgowe", "Rewers", "Ukryte" ,"Ukryte rewers" , "Przesuwane" , "Techniczne" , "PPOŻ" , "Tunel"
-                 ]
-                .map(value => `<option value="${value}">${value}</option>`)
-                .join('')}
+                ${["Przylgow", "Bezprzylgowe", "Rewers", "Ukryte", "Ukryte rewers", "Przesuwane", "Techniczne", "PPOŻ", "Tunel"
+                ]
+                    .map(value => `<option value="${value}">${value}</option>`)
+                    .join('')}
                 <option value="inna">Inna</option>
             </select>
         </td>
              <td>
             <select onchange="handleCustomOption(this)">
                 <option value="" selected></option>
-                ${["OSZCZĘDNOŚCIOWY", "WC", "KLUCZ", "YALE" ]
-                .map(value => `<option value="${value}">${value}</option>`)
-                .join('')}
+                ${["OSZCZĘDNOŚCIOWY", "WC", "KLUCZ", "YALE"]
+                    .map(value => `<option value="${value}">${value}</option>`)
+                    .join('')}
                 <option value="inna">Inna</option>
             </select>
         </td>
@@ -362,8 +356,8 @@
             <select onchange="handleCustomOption(this)">
                 <option value="" selected></option>
                 ${[60, 70, 80, 90, 100]
-                .map(value => `<option value="${value}">${value}</option>`)
-                .join('')}
+                    .map(value => `<option value="${value}">${value}</option>`)
+                    .join('')}
                 <option value="inna">Inna</option>
             </select>
         </td>
@@ -371,9 +365,9 @@
             <select onchange="handleCustomOption(this)">
                 <option value="" selected></option>
                 ${Array.from({ length: 31 }, (_, index) => {
-                    const start = 75 + index * 10;
-                    return `<option value="${start}-${start + 10}">${start}-${start + 10}</option>`;
-                }).join('')}
+                        const start = 75 + index * 10;
+                        return `<option value="${start}-${start + 10}">${start}-${start + 10}</option>`;
+                    }).join('')}
                 <option value="inna">Inna</option>
             </select>
         </td>
@@ -381,14 +375,14 @@
         <td><input type="number" class="price-input" placeholder=""></td>
     `;
 
-        tableBody.appendChild(row);
-    }
+            tableBody.appendChild(row);
+        }
 
-    // Dodaj nasłuchiwanie zmian do pól w ostatniej kolumnie
-    document.querySelectorAll('.price-input').forEach(input => {
-        input.addEventListener('input', calculateSum);
-    });
-}
+
+        document.querySelectorAll('.price-input').forEach(input => {
+            input.addEventListener('input', calculateSum);
+        });
+    }
 
     function calculateSum() {
         let sum = 0;
@@ -399,90 +393,83 @@
             }
         });
 
-        // Wyświetl sumę w komórce "sum-cell"
+
         document.getElementById('sum-cell').textContent = sum.toFixed(2);
     }
 
-    // Nasłuchiwanie zmian na wszystkich polach w ostatniej kolumnie
     document.querySelectorAll('.price-input').forEach(input => {
         input.addEventListener('input', calculateSum);
     });
 
 
-    // Wygeneruj 12 wierszy
     generateTableRows(24);
 
     async function saveToPDF() {
         const { jsPDF } = window.jspdf;
 
-        // Ukryj elementy z klasą 'no-print'
         document.querySelectorAll('.no-print').forEach(el => el.classList.add('hidden'));
 
-        // Wybierz element całego body
         const body = document.body;
 
-        // Renderowanie całej strony jako obraz
         html2canvas(body, {
-            scrollY: 0, // Zapobiega przesuwaniu widoku
-            scale: 2,  // Wyższa rozdzielczość obrazu
-            useCORS: true, // Obsługa CORS dla poprawnego renderowania obrazów
+            scrollY: 0,
+            scale: 2,
+            useCORS: true,
         }).then((canvas) => {
             const imgData = canvas.toDataURL("image/png");
 
-            // Oblicz proporcje obrazu dla PDF
-            const pageWidth = 297; // Szerokość strony A4 w mm (landscape)
-            const pageHeight = 210; // Wysokość strony A4 w mm (landscape)
-            const imgHeight = (canvas.height * pageWidth) / canvas.width; // Proporcjonalna wysokość obrazu
+
+            const pageWidth = 297;
+            const pageHeight = 210;
+            const imgHeight = (canvas.height * pageWidth) / canvas.width;
             let heightLeft = imgHeight;
 
-            // Utwórz dokument PDF w orientacji poziomej
+
             const doc = new jsPDF("landscape", "mm", "a4");
             let position = 0;
 
-            // Dodaj obraz do PDF
+
             while (heightLeft > 0) {
                 doc.addImage(imgData, "PNG", 0, position, pageWidth, imgHeight);
                 heightLeft -= pageHeight;
                 if (heightLeft > 0) {
-                    position -= pageHeight; // Przenieś się na nową stronę
+                    position -= pageHeight;
                     doc.addPage();
                 }
             }
 
-            // Przywróć widoczność elementów z klasą 'no-print'
+
             document.querySelectorAll('.no-print').forEach(el => el.classList.remove('hidden'));
 
-            // Pobierz dzisiejszą datę i sformatuj ją
-            const today = new Date();
-            const formattedDate = today.toISOString().split('T')[0]; // Format: YYYY-MM-DD
 
-            // Zapisz PDF z nazwą na podstawie daty
+            const today = new Date();
+            const formattedDate = today.toISOString().split('T')[0];
+
+
             doc.save(`wycena_${formattedDate}.pdf`);
         });
     }
 
     function handleCustomOption(selectElement) {
         if (selectElement.value === "inna") {
-            // Zamień <select> na <input>
             const input = document.createElement("input");
             input.type = "text";
             input.placeholder = "Wpisz własną wartość";
-            input.value = ""; // Pusta wartość początkowa
+            input.value = "";
             input.onblur = function () {
-                // Zamień <input> z powrotem na <select> po opuszczeniu pola
                 restoreSelect(input, selectElement);
             };
             selectElement.parentNode.replaceChild(input, selectElement);
-            input.focus(); // Skup się na nowym polu
+            input.focus();
         }
     }
 
     function restoreSelect(inputElement, originalSelect) {
-        // Przywróć <select> z nową wartością
+
         const select = originalSelect.cloneNode(true);
         const customValue = inputElement.value.trim();
         if (customValue !== "") {
-            // Dodaj nową opcję, jeśli użytkownik wpisał coś
+
             const newOption = document.createElement("option");
             newOption.value = customValue;
             newOption.textContent = customValue;
