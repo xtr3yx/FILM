@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -30,6 +29,12 @@
       margin-bottom: 10px;
       font-weight: bold;
     }
+    .weekdays div {
+      padding: 8px 0;
+      background-color: #333;
+      border: 1px solid #444;
+      border-radius: 8px;
+    }
     .calendar {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
@@ -37,9 +42,15 @@
     }
     .day {
       background-color: #2a2a2a;
-      border: 1px solid #444;
-      padding: 5px;
-      border-radius: 8px;
+      border: 2px solid #666;
+      padding: 6px;
+      border-radius: 12px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      transition: transform 0.2s ease;
+    }
+    .day:hover {
+      transform: scale(1.02);
+      border-color: #888;
     }
     .day-header {
       font-weight: bold;
@@ -71,7 +82,21 @@
       border-radius: 4px;
       cursor: pointer;
     }
+    .chart-wrapper {
+      margin-top: 40px;
+      background-color: #2a2a2a;
+      border-radius: 10px;
+      padding: 10px;
+      width: 100%;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .chart-wrapper h2 {
+      text-align: center;
+    }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -81,28 +106,35 @@
   <button onclick="changeMonth(1)">Następny &gt;</button>
 </div>
 <div class="weekdays">
-  <div>Pon</div>
-  <div>Wt</div>
-  <div>Śr</div>
-  <div>Czw</div>
-  <div>Pt</div>
-  <div>Sob</div>
-  <div>Nd</div>
+  <div>Poniedziałek</div>
+  <div>Wtorek</div>
+  <div>Środa</div>
+  <div>Czwartek</div>
+  <div>Piątek</div>
+  <div>Sobota</div>
+  <div>Niedziela</div>
 </div>
 <div class="calendar" id="calendar"></div>
+<div id="chartsContainer"></div>
 
 <script>
-  const tasksTemplate = [
-    { name: "Session Breakout", time: "-" },
-    { name: "DAX m15 breakout", time: "9:30" },
-    { name: "UK100 m15 breakout", time: "9:30" },
-    { name: "DAX H1", time: "10:00" },
-    { name: "UK100 H1", time: "10:00" },
-    { name: "GBPUSD H4", time: "11:00" },
-    { name: "US30 H1", time: "15:30" },
-    { name: "US100 H1", time: "15:30" },
-    { name: "US30 m15 breakout", time: "15:30" }
-  ];
+const tasksTemplate = [
+  { name: "Session Breakout", time: "8:00-16:00" },
+  { name: "Pre market breakout", time: "8:00-8:59" },
+  { name: "DAX m15 breakout", time: "9:30" },
+  { name: "UK100 m15 breakout", time: "9:30" },
+  { name: "DAX H1", time: "10:00" },
+  { name: "UK100 H1", time: "10:00" },
+  { name: "GBPUSD H4", time: "11:00" },
+  { name: "US30 H1", time: "14:30-15:29" },
+  { name: "US100 H1", time: "14:30-15:29" },
+  { name: "US30 m15 breakout", time: "15:30" },
+  { name: "GBPUSD FS100", time: "23:00" },
+  { name: "HTS cross m1-m5", time: "-" },
+  { name: "H4 trading class", time: "-" },
+  { name: "Gap Hunting", time: "-" }
+];
+
 
   const calendar = document.getElementById("calendar");
   const monthLabel = document.getElementById("monthLabel");
@@ -113,7 +145,7 @@
     const firstDay = new Date(year, month, 1);
     const lastDay = new Date(year, month + 1, 0);
     const daysInMonth = lastDay.getDate();
-    const startWeekDay = (firstDay.getDay() + 6) % 7; // poniedziałek jako pierwszy
+    const startWeekDay = (firstDay.getDay() + 6) % 7;
 
     monthLabel.textContent = `${firstDay.toLocaleString('pl-PL', { month: 'long' })} ${year}`;
 
@@ -161,8 +193,7 @@
           btn.onclick = () => {
             saved[index].done = !saved[index].done;
             localStorage.setItem(storageKey, JSON.stringify(saved));
-            btn.textContent = saved[index].done ? "Tak" : "Nie";
-            btn.className = saved[index].done ? "done" : "not-done";
+            renderCalendar(year, month);
           };
           statusCell.appendChild(btn);
           row.appendChild(statusCell);
@@ -175,11 +206,84 @@
         calendar.appendChild(dayDiv);
       }
     }
+
+    const stats = {};
+    for (let d = 1; d <= daysInMonth; d++) {
+      const fullDate = `${year}-${(month + 1).toString().padStart(2, '0')}-${d.toString().padStart(2, '0')}`;
+      const storageKey = `daily-plan-${fullDate}`;
+      const savedDay = JSON.parse(localStorage.getItem(storageKey));
+      if (savedDay) {
+        savedDay.forEach(task => {
+          if (task.done) {
+            stats[task.name] = (stats[task.name] || 0) + 1;
+          }
+        });
+      }
+    }
+    updateChart(stats, year, month);
   }
 
   function changeMonth(offset) {
     currentDate.setMonth(currentDate.getMonth() + offset);
     renderCalendar(currentDate.getFullYear(), currentDate.getMonth());
+  }
+
+  function updateChart(data, year, month) {
+    const container = document.getElementById('chartsContainer');
+    container.innerHTML = '';
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'chart-wrapper';
+
+    const title = document.createElement('h2');
+    title.textContent = `Statystyka: ${new Date(year, month).toLocaleString('pl-PL', { month: 'long', year: 'numeric' })}`;
+    wrapper.appendChild(title);
+
+    const canvas = document.createElement('canvas');
+    wrapper.appendChild(canvas);
+    container.appendChild(wrapper);
+
+    const ctx = canvas.getContext('2d');
+    const labels = Object.keys(data);
+    const values = Object.values(data);
+
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Wykonane zagrania (✓)',
+          data: values,
+          backgroundColor: 'rgba(76, 175, 80, 0.7)',
+          borderColor: 'rgba(76, 175, 80, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        indexAxis: 'y',
+        scales: {
+          x: {
+            beginAtZero: true,
+            ticks: {
+              color: '#f0f0f0',
+              stepSize: 1,
+              precision: 0
+            },
+            grid: { color: '#444' }
+          },
+          y: {
+            ticks: { color: '#f0f0f0' },
+            grid: { color: '#444' }
+          }
+        },
+        plugins: {
+          legend: {
+            labels: { color: '#f0f0f0' }
+          }
+        }
+      }
+    });
   }
 
   renderCalendar(currentDate.getFullYear(), currentDate.getMonth());
