@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Statystyki miesięczne</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #1e1e1e;
+      color: #f0f0f0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .chart-wrapper {
+      background-color: #2a2a2a;
+      border-radius: 10px;
+      padding: 10px;
+      margin: 20px auto;
+      max-width: 900px;
+    }
+    canvas {
+      width: 100%;
+    }
+    a {
+      display: inline-block;
+      color: #4caf50;
+      margin-bottom: 20px;
+      text-decoration: none;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<a href="index.html">← Powrót do kalendarza</a>
+<h1>Statystyki miesięczne 📊</h1>
+<div id="allCharts"></div>
+
+<script>
+  function getAllStats() {
+    const statsByMonth = {};
+
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key.startsWith("daily-plan-")) {
+        const [_, dateStr] = key.split("daily-plan-");
+        const [year, month] = dateStr.split("-");
+
+        const monthKey = `${year}-${month}`;
+        const data = JSON.parse(localStorage.getItem(key));
+        if (!statsByMonth[monthKey]) statsByMonth[monthKey] = {};
+
+        data.forEach(task => {
+          if (task.done) {
+            statsByMonth[monthKey][task.name] = (statsByMonth[monthKey][task.name] || 0) + 1;
+          }
+        });
+      }
+    }
+
+    return statsByMonth;
+  }
+
+  function renderCharts(statsByMonth) {
+    const container = document.getElementById("allCharts");
+    Object.entries(statsByMonth).forEach(([monthKey, data]) => {
+      const wrapper = document.createElement("div");
+      wrapper.className = "chart-wrapper";
+
+      const title = document.createElement("h2");
+      const [year, month] = monthKey.split("-");
+      title.textContent = `${new Date(year, month - 1).toLocaleString('pl-PL', { month: 'long', year: 'numeric' })}`;
+      wrapper.appendChild(title);
+
+      const canvas = document.createElement("canvas");
+      wrapper.appendChild(canvas);
+      container.appendChild(wrapper);
+
+      const ctx = canvas.getContext("2d");
+      const labels = Object.keys(data);
+      const values = Object.values(data);
+
+      new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: labels,
+          datasets: [{
+            label: "Wykonane zadania (✓)",
+            data: values,
+            backgroundColor: 'rgba(76, 175, 80, 0.7)',
+            borderColor: 'rgba(76, 175, 80, 1)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          indexAxis: 'y',
+          scales: {
+            x: {
+              beginAtZero: true,
+              ticks: {
+                color: '#f0f0f0',
+                stepSize: 1,
+                precision: 0
+              },
+              grid: { color: '#444' }
+            },
+            y: {
+              ticks: { color: '#f0f0f0' },
+              grid: { color: '#444' }
+            }
+          },
+          plugins: {
+            legend: {
+              labels: { color: '#f0f0f0' }
+            }
+          }
+        }
+      });
+    });
+  }
+
+  const stats = getAllStats();
+  renderCharts(stats);
+</script>
+
+</body>
+</html>
