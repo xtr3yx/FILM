@@ -1,1 +1,189 @@
 
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kalendarz Miesięczny - Daily Plan</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #1e1e1e;
+      color: #f0f0f0;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .weekdays {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      text-align: center;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 10px;
+    }
+    .day {
+      background-color: #2a2a2a;
+      border: 1px solid #444;
+      padding: 5px;
+      border-radius: 8px;
+    }
+    .day-header {
+      font-weight: bold;
+      font-size: 14px;
+      text-align: left;
+      margin-bottom: 4px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+    th, td {
+      border: 1px solid #555;
+      padding: 2px 4px;
+      text-align: center;
+    }
+    .done {
+      background-color: #4caf50;
+      color: white;
+    }
+    .not-done {
+      background-color: #f44336;
+      color: white;
+    }
+    button {
+      border: none;
+      padding: 2px 6px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<h1 id="monthLabel"></h1>
+<div class="controls">
+  <button onclick="changeMonth(-1)">&lt; Poprzedni</button>
+  <button onclick="changeMonth(1)">Następny &gt;</button>
+</div>
+<div class="weekdays">
+  <div>Pon</div>
+  <div>Wt</div>
+  <div>Śr</div>
+  <div>Czw</div>
+  <div>Pt</div>
+  <div>Sob</div>
+  <div>Nd</div>
+</div>
+<div class="calendar" id="calendar"></div>
+
+<script>
+  const tasksTemplate = [
+    { name: "Session Breakout", time: "-" },
+    { name: "DAX m15 breakout", time: "9:30" },
+    { name: "UK100 m15 breakout", time: "9:30" },
+    { name: "DAX H1", time: "10:00" },
+    { name: "UK100 H1", time: "10:00" },
+    { name: "GBPUSD H4", time: "11:00" },
+    { name: "US30 H1", time: "15:30" },
+    { name: "US100 H1", time: "15:30" },
+    { name: "US30 m15 breakout", time: "15:30" }
+  ];
+
+  const calendar = document.getElementById("calendar");
+  const monthLabel = document.getElementById("monthLabel");
+  let currentDate = new Date();
+
+  function renderCalendar(year, month) {
+    calendar.innerHTML = "";
+    const firstDay = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0);
+    const daysInMonth = lastDay.getDate();
+    const startWeekDay = (firstDay.getDay() + 6) % 7; // poniedziałek jako pierwszy
+
+    monthLabel.textContent = `${firstDay.toLocaleString('pl-PL', { month: 'long' })} ${year}`;
+
+    const totalBoxes = Math.ceil((startWeekDay + daysInMonth) / 7) * 7;
+
+    for (let i = 0; i < totalBoxes; i++) {
+      const day = i - startWeekDay + 1;
+      if (i < startWeekDay || day > daysInMonth) {
+        const emptyCell = document.createElement("div");
+        calendar.appendChild(emptyCell);
+      } else {
+        const fullDate = `${year}-${(month + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+        const storageKey = `daily-plan-${fullDate}`;
+        let saved = JSON.parse(localStorage.getItem(storageKey)) || tasksTemplate.map(task => ({ ...task, done: false }));
+
+        const dayDiv = document.createElement("div");
+        dayDiv.className = "day";
+
+        const header = document.createElement("div");
+        header.className = "day-header";
+        header.textContent = `${day}`;
+        dayDiv.appendChild(header);
+
+        const table = document.createElement("table");
+        const thead = document.createElement("thead");
+        thead.innerHTML = `<tr><th>Zadanie</th><th>Godzina</th><th>✓</th></tr>`;
+        table.appendChild(thead);
+
+        const tbody = document.createElement("tbody");
+        saved.forEach((task, index) => {
+          const row = document.createElement("tr");
+
+          const nameCell = document.createElement("td");
+          nameCell.textContent = task.name;
+          row.appendChild(nameCell);
+
+          const timeCell = document.createElement("td");
+          timeCell.textContent = task.time;
+          row.appendChild(timeCell);
+
+          const statusCell = document.createElement("td");
+          const btn = document.createElement("button");
+          btn.textContent = task.done ? "Tak" : "Nie";
+          btn.className = task.done ? "done" : "not-done";
+          btn.onclick = () => {
+            saved[index].done = !saved[index].done;
+            localStorage.setItem(storageKey, JSON.stringify(saved));
+            btn.textContent = saved[index].done ? "Tak" : "Nie";
+            btn.className = saved[index].done ? "done" : "not-done";
+          };
+          statusCell.appendChild(btn);
+          row.appendChild(statusCell);
+
+          tbody.appendChild(row);
+        });
+
+        table.appendChild(tbody);
+        dayDiv.appendChild(table);
+        calendar.appendChild(dayDiv);
+      }
+    }
+  }
+
+  function changeMonth(offset) {
+    currentDate.setMonth(currentDate.getMonth() + offset);
+    renderCalendar(currentDate.getFullYear(), currentDate.getMonth());
+  }
+
+  renderCalendar(currentDate.getFullYear(), currentDate.getMonth());
+</script>
+
+</body>
+</html>
