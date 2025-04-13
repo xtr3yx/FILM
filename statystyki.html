@@ -267,15 +267,18 @@
   allStats = getAllStats();
   populateFilters(allStats);
 
-  const showAll = window.location.search.includes("all");
-  if (showAll) {
-    renderCharts(allStats); // pokaż wszystkie miesiące i ogólny
-  } else {
-    const year = document.getElementById("yearSelect").value;
-    const month = document.getElementById("monthSelect").value;
-    renderCharts(allStats, `${year}-${month}`);
-  }
-</script>
+const showAll = window.location.search.includes("all");
+if (showAll) {
+  const container = document.getElementById("allCharts");
+  container.innerHTML = "";
+  renderOverallSummary(allStats);
+  renderCharts(allStats);
+} else {
+  const year = document.getElementById("yearSelect").value;
+  const month = document.getElementById("monthSelect").value;
+  renderCharts(allStats, `${year}-${month}`);
+}
+ipt>
 
 </body>
 </html>
