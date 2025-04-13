@@ -181,12 +181,6 @@
 
   function renderCharts(statsByMonth, filter = null) {
     const container = document.getElementById("allCharts");
-    container.innerHTML = "";
-
-    // Rysuj najpierw ogólny wykres jeśli nie ma filtra
-    if (!filter) {
-      renderOverallSummary(statsByMonth);
-    }
 
     const keys = Object.keys(statsByMonth).sort().reverse();
 
@@ -257,28 +251,34 @@
   function applyFilter() {
     const y = document.getElementById("yearSelect").value;
     const m = document.getElementById("monthSelect").value;
+    const container = document.getElementById("allCharts");
+    container.innerHTML = "";
     renderCharts(allStats, `${y}-${m}`);
   }
 
   function resetFilter() {
+    const container = document.getElementById("allCharts");
+    container.innerHTML = "";
+    renderOverallSummary(allStats);
     renderCharts(allStats);
   }
 
   allStats = getAllStats();
   populateFilters(allStats);
 
-const showAll = window.location.search.includes("all");
-if (showAll) {
+  const showAll = window.location.search.includes("all");
   const container = document.getElementById("allCharts");
   container.innerHTML = "";
-  renderOverallSummary(allStats);
-  renderCharts(allStats);
-} else {
-  const year = document.getElementById("yearSelect").value;
-  const month = document.getElementById("monthSelect").value;
-  renderCharts(allStats, `${year}-${month}`);
-}
-ipt>
+
+  if (showAll) {
+    renderOverallSummary(allStats);
+    renderCharts(allStats);
+  } else {
+    const year = document.getElementById("yearSelect").value;
+    const month = document.getElementById("monthSelect").value;
+    renderCharts(allStats, `${year}-${month}`);
+  }
+</script>
 
 </body>
 </html>
