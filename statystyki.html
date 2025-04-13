@@ -12,7 +12,7 @@
     }
     h1 {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
     }
     .chart-wrapper {
       background-color: #2a2a2a;
@@ -30,6 +30,18 @@
       margin-bottom: 20px;
       text-decoration: none;
     }
+    .filters {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    select, button {
+      background-color: #333;
+      color: #f0f0f0;
+      border: 1px solid #666;
+      border-radius: 5px;
+      padding: 5px 10px;
+      margin: 5px;
+    }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -37,9 +49,19 @@
 
 <a href="index.html">← Powrót do kalendarza</a>
 <h1>Statystyki miesięczne 📊</h1>
+
+<div class="filters">
+  <select id="monthSelect"></select>
+  <select id="yearSelect"></select>
+  <button onclick="applyFilter()">Pokaż</button>
+  <button onclick="resetFilter()">Pokaż wszystko</button>
+</div>
+
 <div id="allCharts"></div>
 
 <script>
+  let allStats = {};
+
   function getAllStats() {
     const statsByMonth = {};
 
@@ -64,9 +86,39 @@
     return statsByMonth;
   }
 
-  function renderCharts(statsByMonth) {
+  function populateFilters(stats) {
+    const yearSelect = document.getElementById("yearSelect");
+    const monthSelect = document.getElementById("monthSelect");
+
+    const keys = Object.keys(stats);
+    const years = [...new Set(keys.map(k => k.split("-")[0]))];
+    const months = [...new Set(keys.map(k => k.split("-")[1]))];
+
+    years.sort().forEach(y => {
+      const option = document.createElement("option");
+      option.value = y;
+      option.textContent = y;
+      yearSelect.appendChild(option);
+    });
+
+    months.sort().forEach(m => {
+      const option = document.createElement("option");
+      option.value = m;
+      option.textContent = new Date(0, m - 1).toLocaleString('pl-PL', { month: 'long' });
+      monthSelect.appendChild(option);
+    });
+  }
+
+  function renderCharts(statsByMonth, filter = null) {
     const container = document.getElementById("allCharts");
-    Object.entries(statsByMonth).forEach(([monthKey, data]) => {
+    container.innerHTML = "";
+
+    const keys = Object.keys(statsByMonth).sort().reverse();
+
+    keys.forEach(monthKey => {
+      if (filter && monthKey !== filter) return;
+
+      const data = statsByMonth[monthKey];
       const wrapper = document.createElement("div");
       wrapper.className = "chart-wrapper";
 
@@ -121,10 +173,25 @@
         }
       });
     });
+
+    if (filter && container.innerHTML === "") {
+      container.innerHTML = "<p style='text-align: center;'>Brak danych dla wybranego miesiąca.</p>";
+    }
   }
 
-  const stats = getAllStats();
-  renderCharts(stats);
+  function applyFilter() {
+    const y = document.getElementById("yearSelect").value;
+    const m = document.getElementById("monthSelect").value;
+    renderCharts(allStats, `${y}-${m}`);
+  }
+
+  function resetFilter() {
+    renderCharts(allStats);
+  }
+
+  allStats = getAllStats();
+  populateFilters(allStats);
+  renderCharts(allStats);
 </script>
 
 </body>
