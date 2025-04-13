@@ -263,21 +263,15 @@
     renderCharts(allStats);
   }
 
-  allStats = getAllStats();
-  populateFilters(allStats);
+allStats = getAllStats();
+populateFilters(allStats);
 
-  const showAll = window.location.search.includes("all");
-  const container = document.getElementById("allCharts");
-  container.innerHTML = "";
+// Domyślnie zawsze pokazuj ogólny wykres + wszystkie miesiące
+const container = document.getElementById("allCharts");
+container.innerHTML = "";
+renderOverallSummary(allStats);
+renderCharts(allStats);
 
-  if (showAll) {
-    renderOverallSummary(allStats);
-    renderCharts(allStats);
-  } else {
-    const year = document.getElementById("yearSelect").value;
-    const month = document.getElementById("monthSelect").value;
-    renderCharts(allStats, `${year}-${month}`);
-  }
 </script>
 
 </body>
