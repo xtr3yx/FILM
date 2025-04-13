@@ -110,13 +110,6 @@
       monthSelect.appendChild(option);
     });
 
-    // Wyświetl pierwszy dostępny miesiąc automatycznie
-    if (years.length && months.length) {
-      yearSelect.value = years[0];
-      monthSelect.value = months[0];
-      applyFilter();
-    }
-
     yearSelect.onchange = applyFilter;
     monthSelect.onchange = applyFilter;
   }
@@ -190,7 +183,7 @@
     const container = document.getElementById("allCharts");
     container.innerHTML = "";
 
-    // Rysuj najpierw ogólny wykres
+    // Rysuj najpierw ogólny wykres jeśli nie ma filtra
     if (!filter) {
       renderOverallSummary(statsByMonth);
     }
@@ -273,6 +266,15 @@
 
   allStats = getAllStats();
   populateFilters(allStats);
+
+  const showAll = window.location.search.includes("all");
+  if (showAll) {
+    renderCharts(allStats); // pokaż wszystkie miesiące i ogólny
+  } else {
+    const year = document.getElementById("yearSelect").value;
+    const month = document.getElementById("monthSelect").value;
+    renderCharts(allStats, `${year}-${month}`);
+  }
 </script>
 
 </body>
